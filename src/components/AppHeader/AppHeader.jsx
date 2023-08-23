@@ -8,7 +8,7 @@ function AppHeader() {
       <div className={styles.content}>
         <div className={styles.container}>
           <nav className={styles.navigation}>
-            <a href="#" className={`${styles.navigationItem}`} style={{ color: "#F2F2F3" }}>
+            <a href="#" className={`${styles.navigationItem} ${styles.activeNavigation}`}>
               <BurgerIcon type="primary" />Конструктор
             </a>
             <a href="#" className={styles.navigationItem}> <ListIcon type="secondary" />Лента заказов</a>

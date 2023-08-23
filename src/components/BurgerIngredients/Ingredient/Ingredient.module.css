@@ -27,3 +27,7 @@
 .name {
   composes: text text_type_main-default from global;
 }
+
+.counter {
+  position: absolute;
+}

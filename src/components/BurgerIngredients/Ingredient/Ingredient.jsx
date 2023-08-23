@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 function Ingreditent({ image, price, name }) {
   return (
     <div className={styles.card} >
-      <Counter styles={{ position: "absolute" }} count={1} size="default" extraClass="m-1" />
+      <Counter className={styles.counter} count={1} size="default" extraClass="m-1" />
       <img className={styles.image} src={image} alt="ингредиент" />
       <div className={styles.containerIngredients}>
         <p className={styles.price}>{price}</p>

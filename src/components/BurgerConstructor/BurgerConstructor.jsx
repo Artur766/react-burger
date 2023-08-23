@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./BurgerConstructor.module.css"
+import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 
