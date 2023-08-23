@@ -1,0 +1,65 @@
+.constructorList {
+  composes: mt-25 from global;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 656px;
+}
+
+.scrollBarContainer {
+  overflow-y: overlay;
+  max-height: 464px;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.containerConstructorElement {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 568px;
+  column-gap: 8px;
+  margin-right: 8px;
+  margin-left: 16px;
+}
+
+.containerDecoration {
+  display: flex;
+  max-width: 568px;
+  justify-content: flex-end;
+  column-gap: 40px;
+  margin: 40px auto 0;
+}
+
+.containerTotalPrice {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.totalPrice {
+  composes: text text_type_digits-medium from global;
+}
+
+/* Ширина и цвет полосы прокрутки */
+.scrollBarContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Стилизация полосы прокрутки */
+.scrollBarContainer::-webkit-scrollbar-thumb {
+  background: var(--text-dark-grey-secondary-text, #8585AD);
+}
+
+/* Стилизация при наведении на полосу прокрутки */
+.scrollBarContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Стилизация трека (фоновой области) */
+.scrollBarContainer::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
