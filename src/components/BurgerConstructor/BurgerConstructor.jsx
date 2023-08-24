@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { data } from '../../utils/data';
 
-function BurgerConstructor() {
+function BurgerConstructor({ ingredients }) {
   const img = "https://code.s3.yandex.net/react/code/bun-02.png";
   return (
     <section>
@@ -19,7 +18,7 @@ function BurgerConstructor() {
         </div>
         <div className={styles.scrollBarContainer}>
           {
-            data.map((item) => {
+            ingredients.map((item) => {
               return (item.type !== "bun" &&
                 <div key={item._id} className={styles.containerConstructorElement} >
                   <DragIcon type="primary" />
