@@ -33,6 +33,11 @@
   text-decoration: none;
 }
 
+.navigationItem:hover {
+  box-shadow: inset 0px -2px 0px #4C4CFF;
+  color: var(--text-primary-color);
+}
+
 .navigationItem.activeNavigation {
   color: #F2F2F3;
 }

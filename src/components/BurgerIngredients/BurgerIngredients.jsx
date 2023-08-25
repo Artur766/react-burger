@@ -5,7 +5,7 @@ import { arrTitleIngredients } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
 
-function BurgerIngredients({ title, ingredients }) {
+function BurgerIngredients({ title, ingredients, onCardClick }) {
 
 
   return (
@@ -24,10 +24,9 @@ function BurgerIngredients({ title, ingredients }) {
                       return (
                         item.type === typeIngred.type &&
                         <Ingredient
+                          onCardClick={onCardClick}
                           key={item._id}
-                          name={item.name}
-                          price={item.price}
-                          image={item.image}
+                          ingradient={item}
                         />
                       )
                     })

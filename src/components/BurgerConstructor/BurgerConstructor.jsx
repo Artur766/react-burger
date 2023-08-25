@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor({ ingredients }) {
+function BurgerConstructor({ ingredients, isOpen }) {
   const img = "https://code.s3.yandex.net/react/code/bun-02.png";
   return (
     <section>
@@ -46,7 +46,7 @@ function BurgerConstructor({ ingredients }) {
           <p className={styles.totalPrice}>610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={isOpen}>
           Оформить заказ
         </Button>
       </div>

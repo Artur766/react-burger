@@ -4,16 +4,21 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from 'prop-types';
 
 
-function Ingreditent({ image, price, name }) {
+function Ingreditent({ onCardClick, ingradient }) {
+
+  function handleClickCard() {
+    onCardClick(ingradient);
+  }
+
   return (
-    <div className={styles.card} >
+    <div className={styles.card} onClick={handleClickCard}>
       <Counter className={styles.counter} count={1} size="default" extraClass="m-1" />
-      <img className={styles.image} src={image} alt="ингредиент" />
+      <img className={styles.image} src={ingradient.image} alt="ингредиент" />
       <div className={styles.containerIngredients}>
-        <p className={styles.price}>{price}</p>
+        <p className={styles.price}>{ingradient.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={styles.name}>{name}</p>
+      <p className={styles.name}>{ingradient.name}</p>
     </div>
   )
 }
