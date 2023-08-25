@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "./IngredientDetails.module.css";
 import Modal from '../Modal/Modal';
+import PropTypes from 'prop-types';
 
 function IngredientDetails({ onClose, isOpen, ingradient }) {
   return (
@@ -30,3 +31,9 @@ function IngredientDetails({ onClose, isOpen, ingradient }) {
 }
 
 export default IngredientDetails;
+
+IngredientDetails.propTypes = {
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+  ingradient: PropTypes.object
+}

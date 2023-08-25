@@ -42,7 +42,7 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <BurgerIngredients title="Соберите бургер" ingredients={ingredients} onCardClick={handleOpenModalIngredient} />
-        <BurgerConstructor ingredients={ingredients} isOpen={handleOpenModalOrder} />
+        <BurgerConstructor ingredients={ingredients} onClick={handleOpenModalOrder} />
       </main>
       <IngredientDetails onClose={handleCloseAllModal} isOpen={ingredientModalVisable} ingradient={ingredient} />
       <OrderDetails onClose={handleCloseAllModal} isOpen={orderModalVisable} />

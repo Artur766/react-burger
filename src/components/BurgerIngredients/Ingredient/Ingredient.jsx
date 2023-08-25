@@ -23,10 +23,9 @@ function Ingreditent({ onCardClick, ingradient }) {
   )
 }
 
-Ingreditent.propTypes = {
-  image: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-}
-
 export default Ingreditent;
+
+Ingreditent.propTypes = {
+  ingradient: PropTypes.object,
+  onCardClick: PropTypes.func
+}

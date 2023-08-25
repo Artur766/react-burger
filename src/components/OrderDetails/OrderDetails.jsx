@@ -1,7 +1,9 @@
 import React from 'react';
 import Modal from '../Modal/Modal';
-import styles from "./OrderDetails.module.css"
-import checkMark from "../../images/done.svg"
+import styles from "./OrderDetails.module.css";
+import checkMark from "../../images/done.svg";
+import PropTypes from 'prop-types';
+
 function OrderDetails({ onClose, isOpen }) {
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
@@ -15,3 +17,8 @@ function OrderDetails({ onClose, isOpen }) {
 }
 
 export default OrderDetails;
+
+OrderDetails.propTypes = {
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+}
