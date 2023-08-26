@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
 
 function BurgerConstructor({ ingredients, onClick }) {
   const img = "https://code.s3.yandex.net/react/code/bun-02.png";
@@ -58,6 +59,6 @@ function BurgerConstructor({ ingredients, onClick }) {
 export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object),
+  ingredients: PropTypes.arrayOf(IngredientPropTypes),
   onClick: PropTypes.func
 }

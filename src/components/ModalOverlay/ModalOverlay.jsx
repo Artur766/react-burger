@@ -10,23 +10,6 @@ function ModalOverlay({ children, onClose, isOpen }) {
     }
   }
 
-  React.useEffect(() => {
-
-    function handleEscClose(e) {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscClose);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    }
-  }, [isOpen, onClose])
-
   return (
     <div className={`${styles.modalOverlay} ${isOpen && styles.open}`} onMouseDown={handleOverlayClose}>
       {children}

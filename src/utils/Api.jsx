@@ -6,7 +6,7 @@ function handleResponse(res) {
   return res.json()
     .then(error => {
       const errorMessage = error || "Произошла ошибка...";
-      return Promise.reject(new Error(errorMessage));
+      return Promise.reject(errorMessage);
     });
 }
 

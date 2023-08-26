@@ -4,6 +4,7 @@ import Tabs from './Tabs/Tabs';
 import { arrTitleIngredients } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
+import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
 
 function BurgerIngredients({ title, ingredients, onCardClick }) {
 
@@ -43,7 +44,7 @@ function BurgerIngredients({ title, ingredients, onCardClick }) {
 
 BurgerIngredients.propTypes = {
   title: PropTypes.string,
-  ingredients: PropTypes.arrayOf(PropTypes.object),
+  ingredients: PropTypes.arrayOf(IngredientPropTypes),
   onCardClick: PropTypes.func
 };
 

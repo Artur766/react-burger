@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./Ingredient.module.css";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 
 
 function Ingreditent({ onCardClick, ingradient }) {
@@ -26,6 +27,6 @@ function Ingreditent({ onCardClick, ingradient }) {
 export default Ingreditent;
 
 Ingreditent.propTypes = {
-  ingradient: PropTypes.object,
+  ingradient: IngredientPropTypes,
   onCardClick: PropTypes.func
 }
