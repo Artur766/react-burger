@@ -1,0 +1,24 @@
+.image {
+  width: 480px;
+  height: 240px;
+  object-fit: cover;
+}
+
+.title {
+  composes: text text_type_main-medium mt-4 mb-8 from global;
+}
+
+.containerSpecifications {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 60px;
+}
+
+.text {
+  composes: text text_type_main-default mb-2 text_color_inactive from global;
+}
+
+.meaning {
+  composes: text text_type_digits-default text_color_inactive from global;
+  text-align: center;
+}

@@ -7,6 +7,12 @@
   height: 208px;
 }
 
+.card:hover {
+  cursor: pointer;
+  opacity: 0.85;
+  box-shadow: inset 0px -2px 0px #4C4CFF;
+}
+
 .image {
   display: block;
   width: 240px;

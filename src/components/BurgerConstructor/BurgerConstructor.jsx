@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { data } from '../../utils/data';
+import PropTypes from 'prop-types';
+import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
 
-function BurgerConstructor() {
+function BurgerConstructor({ ingredients, onClick }) {
   const img = "https://code.s3.yandex.net/react/code/bun-02.png";
   return (
     <section>
@@ -19,7 +20,7 @@ function BurgerConstructor() {
         </div>
         <div className={styles.scrollBarContainer}>
           {
-            data.map((item) => {
+            ingredients.map((item) => {
               return (item.type !== "bun" &&
                 <div key={item._id} className={styles.containerConstructorElement} >
                   <DragIcon type="primary" />
@@ -47,7 +48,7 @@ function BurgerConstructor() {
           <p className={styles.totalPrice}>610</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
           Оформить заказ
         </Button>
       </div>
@@ -56,3 +57,8 @@ function BurgerConstructor() {
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(IngredientPropTypes),
+  onClick: PropTypes.func
+}
