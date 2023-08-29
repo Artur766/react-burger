@@ -46,8 +46,8 @@ function Modal({ title, children, onClose, isOpen }) {
 export default Modal;
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool,
-  children: PropTypes.node,
-  onClose: PropTypes.func,
+  isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
   title: PropTypes.string
 }

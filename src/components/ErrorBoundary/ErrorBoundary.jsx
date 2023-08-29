@@ -17,5 +17,5 @@ function ErrorBoundary({ error }) {
 export default ErrorBoundary;
 
 ErrorBoundary.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.string.isRequired
 }

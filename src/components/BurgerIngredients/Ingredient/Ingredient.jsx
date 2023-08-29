@@ -27,6 +27,6 @@ function Ingreditent({ onCardClick, ingradient }) {
 export default Ingreditent;
 
 Ingreditent.propTypes = {
-  ingradient: IngredientPropTypes,
-  onCardClick: PropTypes.func
+  ingradient: IngredientPropTypes.isRequired,
+  onCardClick: PropTypes.func.isRequired
 }

@@ -59,6 +59,6 @@ function BurgerConstructor({ ingredients, onClick }) {
 export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes),
-  onClick: PropTypes.func
+  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
+  onClick: PropTypes.func.isRequired
 }

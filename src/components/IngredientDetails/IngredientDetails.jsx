@@ -32,5 +32,5 @@ function IngredientDetails({ ingradient }) {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  ingradient: IngredientPropTypes
+  ingradient: IngredientPropTypes.isRequired
 }

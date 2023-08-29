@@ -43,9 +43,9 @@ function BurgerIngredients({ title, ingredients, onCardClick }) {
 }
 
 BurgerIngredients.propTypes = {
-  title: PropTypes.string,
-  ingredients: PropTypes.arrayOf(IngredientPropTypes),
-  onCardClick: PropTypes.func
+  title: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;
