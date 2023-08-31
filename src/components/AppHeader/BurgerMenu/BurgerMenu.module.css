@@ -1,0 +1,77 @@
+.burger {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: end;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 1;
+}
+
+.list {
+  background-color: #202020;
+  width: 420px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 402px;
+}
+
+.title {
+  composes: text text_type_main-large from global;
+}
+
+.navigation {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+
+  width: 402px;
+}
+
+.navigationItem {
+  composes: text text_type_main-default pt-4 pb-4 pl-5 pr-5 text_color_inactive from global;
+  display: flex;
+  padding: 12px 20px 12px 0;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navigationItem:hover {
+  color: var(--text-primary-color);
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileContainer:hover {
+  cursor: pointer;
+  color: var(--text-primary-color);
+
+  .navigationItem {
+    color: var(--text-primary-color);
+  }
+}
+
+.linkProfile {
+  composes: text text_type_main-small pt-2 pb-2 pl-8 text_color_inactive from global;
+  text-decoration: none;
+}
+
+.linkProfile:hover {
+  color: var(--text-primary-color);
+}

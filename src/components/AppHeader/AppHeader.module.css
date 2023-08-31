@@ -72,3 +72,7 @@
     padding: 0 16px;
   }
 }
+
+svg {
+  cursor: pointer;
+}
