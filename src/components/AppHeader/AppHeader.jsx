@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from "./AppHeader.module.css";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { Logo, BurgerIcon, ListIcon, ProfileIcon, MenuIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import logo from "../../images/logo.svg"
 function AppHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
+        <div className={styles.contentMobile}>
+          <a href=""><img src={logo} alt="" /></a>
+          <MenuIcon />
+        </div>
         <div className={styles.container}>
           <nav className={styles.navigation}>
             <a href="#" className={`${styles.navigationItem} ${styles.activeNavigation}`}>
@@ -13,7 +17,7 @@ function AppHeader() {
             </a>
             <a href="#" className={styles.navigationItem}> <ListIcon type="secondary" />Лента заказов</a>
           </nav>
-          <Logo />
+          <a href="#" className={styles.navigationItem}> <Logo /></a>
         </div>
         <a href="#" className={styles.profile}> <ProfileIcon type="secondary" />Личный кабинет</a>
       </div>
