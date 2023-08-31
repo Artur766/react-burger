@@ -20,9 +20,9 @@ function BurgerMenu({ closeMenu }) {
           </div>
           {isProfile &&
             <>
-              <a href="#" className={styles.linkProfile}>Профиль</a>
-              <a href="#" className={styles.linkProfile}>История заказов</a>
-              <a href="#" className={styles.linkProfile}>Выход</a>
+              <a href="#" className={styles.linkProfile} onClick={closeMenu}>Профиль</a>
+              <a href="#" className={styles.linkProfile} onClick={closeMenu}>История заказов</a>
+              <a href="#" className={styles.linkProfile} onClick={closeMenu}>Выход</a>
             </>
           }
           <a href="#" className={`${styles.navigationItem}`} onClick={closeMenu}>

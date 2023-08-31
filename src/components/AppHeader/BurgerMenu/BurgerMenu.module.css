@@ -35,7 +35,6 @@
   padding-top: 16px;
   display: flex;
   flex-direction: column;
-
   width: 402px;
 }
 
@@ -74,4 +73,15 @@
 
 .linkProfile:hover {
   color: var(--text-primary-color);
+}
+
+@media screen and (max-width:420px) {
+
+  .header {
+    width: 300px;
+  }
+
+  .navigation {
+    width: 300px;
+  }
 }

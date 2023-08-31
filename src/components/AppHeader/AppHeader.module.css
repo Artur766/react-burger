@@ -3,7 +3,6 @@
   height: 56px;
   background: var(--interface-modal-bg, #1C1C21);
   box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
-
 }
 
 .content {
@@ -27,7 +26,6 @@
 .navigationItem {
   composes: text text_type_main-default pt-4 pb-4 pl-5 pr-5 text_color_inactive from global;
   display: flex;
-  padding: 16px 20px;
   align-items: center;
   gap: 8px;
   border-radius: 40px;
@@ -54,13 +52,16 @@
 
 @media screen and (max-width:1032px) {
   .container {
-    /* display: none; */
     column-gap: 10px;
   }
 }
 
 @media screen and (max-width:930px) {
   .navigationItem {
+    display: none;
+  }
+
+  .container {
     display: none;
   }
 
@@ -71,8 +72,4 @@
     align-items: center;
     padding: 0 16px;
   }
-}
-
-svg {
-  cursor: pointer;
 }

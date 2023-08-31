@@ -4,14 +4,20 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon, MenuIcon } from '@ya.praktikum
 import logo from "../../images/logo.svg"
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 function AppHeader() {
+  const [visable, setVisableMenu] = React.useState(false);
+
+  function handleVisableMenu() {
+    setVisableMenu(!visable);
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.content}>
         <div className={styles.contentMobile}>
-          <a href=""><img src={logo} alt="" /></a>
-          <MenuIcon />
+          <a href=""><img src={logo} alt="лого" /></a>
+          <MenuIcon onClick={handleVisableMenu} />
         </div>
-        <BurgerMenu />
+        {visable && <BurgerMenu closeMenu={handleVisableMenu} />}
         <div className={styles.container}>
           <nav className={styles.navigation}>
             <a href="#" className={`${styles.navigationItem} ${styles.activeNavigation}`}>
@@ -19,7 +25,7 @@ function AppHeader() {
             </a>
             <a href="#" className={styles.navigationItem}> <ListIcon type="secondary" />Лента заказов</a>
           </nav>
-          <a href="#" className={styles.navigationItem}> <Logo /></a>
+          <Logo />
         </div>
         <a href="#" className={styles.profile}> <ProfileIcon type="secondary" />Личный кабинет</a>
       </div>
