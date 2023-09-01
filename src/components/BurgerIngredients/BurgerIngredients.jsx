@@ -4,7 +4,6 @@ import Tabs from './Tabs/Tabs';
 import { arrTitleIngredients } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
-import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
 import { IngredientsContext } from '../../context/IngredientsContext';
 
 function BurgerIngredients({ title, onCardClick }) {

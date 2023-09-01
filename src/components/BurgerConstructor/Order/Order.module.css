@@ -1,0 +1,17 @@
+.containerDecoration {
+  display: flex;
+  max-width: 568px;
+  justify-content: flex-end;
+  column-gap: 40px;
+  margin: 40px auto 0;
+}
+
+.containerTotalPrice {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.totalPrice {
+  composes: text text_type_digits-medium from global;
+}

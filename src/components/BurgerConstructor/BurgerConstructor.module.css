@@ -7,15 +7,6 @@
   min-height: 656px;
 }
 
-.scrollBarContainer {
-  overflow-y: overlay;
-  max-height: 464px;
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .containerConstructorElement {
   display: flex;
   align-items: center;
@@ -26,22 +17,13 @@
   margin-left: 16px;
 }
 
-.containerDecoration {
+.scrollBarContainer {
+  overflow-y: overlay;
+  max-height: 464px;
+  align-items: flex-end;
   display: flex;
-  max-width: 568px;
-  justify-content: flex-end;
-  column-gap: 40px;
-  margin: 40px auto 0;
-}
-
-.containerTotalPrice {
-  display: flex;
-  align-items: center;
-  column-gap: 8px;
-}
-
-.totalPrice {
-  composes: text text_type_digits-medium from global;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* Ширина и цвет полосы прокрутки */

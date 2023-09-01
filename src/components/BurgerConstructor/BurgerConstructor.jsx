@@ -1,28 +1,32 @@
 import React from 'react';
 import styles from "./BurgerConstructor.module.css";
-import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
 import { IngredientsContext } from '../../context/IngredientsContext';
+import Bun from './Bun/Bun';
+import Order from './Order/Order';
 
 
 function BurgerConstructor({ onClick }) {
 
-  const { ingredients } = React.useContext(IngredientsContext)
-  const img = "https://code.s3.yandex.net/react/code/bun-02.png";
+  const { ingredients } = React.useContext(IngredientsContext);
+  const [bun, setBun] = React.useState({})
+
+  React.useEffect(() => {
+    const newBun = ingredients.find(elem => elem.type === "bun");
+    setBun(newBun)
+  }, [ingredients])
 
   return (
     <section>
       <div className={styles.constructorList} >
-        <div className={styles.containerConstructorElement} >
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={img}
-          />
-        </div>
+        <Bun
+          type="top"
+          positionName="верх"
+          name={bun?.name}
+          image={bun?.image}
+          price={bun?.price}
+        />
         <div className={styles.scrollBarContainer}>
           {
             ingredients.map((item) => {
@@ -38,25 +42,15 @@ function BurgerConstructor({ onClick }) {
             })
           }
         </div>
-        <div className={styles.containerConstructorElement} >
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={img}
-          />
-        </div>
+        <Bun
+          name={bun?.name}
+          image={bun?.image}
+          price={bun?.price}
+          type="bottom"
+          positionName="низ"
+        />
       </div>
-      <div className={styles.containerDecoration} >
-        <div className={styles.containerTotalPrice}>
-          <p className={styles.totalPrice}>610</p>
-          <CurrencyIcon type="primary" />
-        </div>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
-          Оформить заказ
-        </Button>
-      </div>
+      <Order onClick={onClick} />
     </section>
   )
 }
