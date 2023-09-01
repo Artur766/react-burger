@@ -46,7 +46,6 @@ function BurgerIngredients({ title, onCardClick }) {
 
 BurgerIngredients.propTypes = {
   title: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
   onCardClick: PropTypes.func.isRequired
 };
 
