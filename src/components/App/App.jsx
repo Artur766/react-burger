@@ -8,6 +8,7 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Modal from '../Modal/Modal';
+import { IngredientsContext } from '../../context/IngredientsContext';
 
 function App() {
 
@@ -46,19 +47,21 @@ function App() {
       ?
       <ErrorBoundary error={error} />
       :
-      <div className={styles.app}>
-        <AppHeader />
-        <main className={styles.main}>
-          <BurgerIngredients title="Соберите бургер" ingredients={ingredients} onCardClick={handleOpenModalIngredient} />
-          <BurgerConstructor ingredients={ingredients} onClick={handleOpenModalOrder} />
-        </main>
-        <Modal onClose={handleCloseAllModal} isOpen={orderModalVisable}>
-          <OrderDetails />
-        </Modal>
-        <Modal onClose={handleCloseAllModal} isOpen={ingredientModalVisable}>
-          <IngredientDetails ingradient={ingredient} />
-        </Modal>
-      </div>)
+      <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
+        <div className={styles.app}>
+          <AppHeader />
+          <main className={styles.main}>
+            <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
+            <BurgerConstructor onClick={handleOpenModalOrder} />
+          </main>
+          <Modal onClose={handleCloseAllModal} isOpen={orderModalVisable}>
+            <OrderDetails />
+          </Modal>
+          <Modal onClose={handleCloseAllModal} isOpen={ingredientModalVisable}>
+            <IngredientDetails ingradient={ingredient} />
+          </Modal>
+        </div>
+      </IngredientsContext.Provider>)
   );
 }
 

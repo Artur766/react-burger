@@ -3,9 +3,14 @@ import styles from "./BurgerConstructor.module.css";
 import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
+import { IngredientsContext } from '../../context/IngredientsContext';
 
-function BurgerConstructor({ ingredients, onClick }) {
+
+function BurgerConstructor({ onClick }) {
+
+  const { ingredients } = React.useContext(IngredientsContext)
   const img = "https://code.s3.yandex.net/react/code/bun-02.png";
+
   return (
     <section>
       <div className={styles.constructorList} >

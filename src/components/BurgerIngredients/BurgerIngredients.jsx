@@ -5,9 +5,11 @@ import { arrTitleIngredients } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
 import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
+import { IngredientsContext } from '../../context/IngredientsContext';
 
-function BurgerIngredients({ title, ingredients, onCardClick }) {
+function BurgerIngredients({ title, onCardClick }) {
 
+  const { ingredients } = React.useContext(IngredientsContext);
 
   return (
     <section className={styles.ingredients}>
