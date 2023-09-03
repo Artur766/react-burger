@@ -11,7 +11,6 @@ import Modal from '../Modal/Modal';
 import { IngredientsContext } from '../../context/IngredientsContext';
 
 function App() {
-
   const [ingredients, setIngredients] = React.useState([]);
   const [orderModalVisable, setOrderModalVisable] = React.useState(false);
   const [ingredientModalVisable, setIngredientModalVisable] = React.useState(false);

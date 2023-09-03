@@ -6,6 +6,8 @@ import { createOrder } from '../../../utils/Api';
 
 function Order({ onOpenModal, totalPrice, setOrderNumber }) {
   const { ingredients } = React.useContext(IngredientsContext);
+  const [error, setError] = React.useState(null);
+
 
   function handleCreateOrder() {
     const ingredientsId = ingredients.map(item => item._id);
@@ -14,10 +16,12 @@ function Order({ onOpenModal, totalPrice, setOrderNumber }) {
         onOpenModal();
         setOrderNumber(res.order.number);
       })
+      .catch(err => setError(err))
   }
 
   return (
     <div className={styles.containerDecoration} >
+      {error && <p className={styles.error}>Произошла ошибка: {error}</p>}
       <div className={styles.containerTotalPrice}>
         <p className={styles.totalPrice}>{totalPrice.totalPrice}</p>
         <CurrencyIcon type="primary" />

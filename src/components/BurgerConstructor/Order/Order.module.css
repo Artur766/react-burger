@@ -1,4 +1,5 @@
 .containerDecoration {
+  position: relative;
   display: flex;
   max-width: 568px;
   justify-content: flex-end;
@@ -14,4 +15,12 @@
 
 .totalPrice {
   composes: text text_type_digits-medium from global;
+}
+
+.error {
+  position: absolute;
+  top: -30px;
+  left: 10px;
+  color: red;
+  composes: text text_type_main-small from global;
 }
