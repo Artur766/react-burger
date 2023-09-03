@@ -74,6 +74,7 @@ function BurgerConstructor({ onOpenModal, setOrderNumber }) {
 
 export default BurgerConstructor;
 
-// BurgerConstructor.propTypes = {
-//   onClick: PropTypes.func.isRequired
-// }
+BurgerConstructor.propTypes = {
+  onOpenModal: PropTypes.func.isRequired,
+  setOrderNumber: PropTypes.func.isRequired
+}

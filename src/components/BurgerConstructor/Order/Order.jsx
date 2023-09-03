@@ -3,11 +3,11 @@ import styles from "./Order.module.css";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext } from '../../../context/IngredientsContext';
 import { createOrder } from '../../../utils/Api';
+import PropTypes from 'prop-types';
 
 function Order({ onOpenModal, totalPrice, setOrderNumber }) {
   const { ingredients } = React.useContext(IngredientsContext);
   const [error, setError] = React.useState(null);
-
 
   function handleCreateOrder() {
     const ingredientsId = ingredients.map(item => item._id);
@@ -34,3 +34,9 @@ function Order({ onOpenModal, totalPrice, setOrderNumber }) {
 }
 
 export default Order;
+
+Order.propTypes = {
+  onOpenModal: PropTypes.func.isRequired,
+  setOrderNumber: PropTypes.func.isRequired,
+  totalPrice: PropTypes.shape({ totalPrice: PropTypes.number.isRequired }),
+}
