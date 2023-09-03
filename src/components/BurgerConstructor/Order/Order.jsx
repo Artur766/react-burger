@@ -3,11 +3,11 @@ import styles from "./Order.module.css";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-function Order({ onClick }) {
+function Order({ onClick, totalPrice }) {
   return (
     <div className={styles.containerDecoration} >
       <div className={styles.containerTotalPrice}>
-        <p className={styles.totalPrice}>610</p>
+        <p className={styles.totalPrice}>{totalPrice.totalPrice}</p>
         <CurrencyIcon type="primary" />
       </div>
       <Button htmlType="button" type="primary" size="large" onClick={onClick}>

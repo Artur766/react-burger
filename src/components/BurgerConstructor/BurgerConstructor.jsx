@@ -6,15 +6,32 @@ import { IngredientsContext } from '../../context/IngredientsContext';
 import Bun from './Bun/Bun';
 import Order from './Order/Order';
 
+const totalPriceInitialState = { totalPrice: 0 }
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "sum":
+      return { totalPrice: action.payload }
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
 
 function BurgerConstructor({ onClick }) {
 
   const { ingredients } = React.useContext(IngredientsContext);
   const [bun, setBun] = React.useState({})
+  const [totalPrice, totalPriceDispatcher] = React.useReducer(reducer, totalPriceInitialState, undefined);
 
   React.useEffect(() => {
+    //Ищем в массиве булку
     const newBun = ingredients.find(elem => elem.type === "bun");
-    setBun(newBun)
+    //Через редюс считаем сумму всех ингредиенитов 
+    const sumIngredient = ingredients.reduce((acc, item) => {
+      return item.type !== "bun" ? item.price + acc : acc;
+    }, 0);
+    setBun(newBun);
+    totalPriceDispatcher({ type: "sum", payload: sumIngredient + (newBun?.price || 0) * 2 });
   }, [ingredients])
 
   return (
@@ -50,7 +67,7 @@ function BurgerConstructor({ onClick }) {
           positionName="низ"
         />
       </div>
-      <Order onClick={onClick} />
+      <Order onClick={onClick} totalPrice={totalPrice} />
     </section>
   )
 }
