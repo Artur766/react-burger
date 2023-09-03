@@ -17,6 +17,7 @@ function App() {
   const [ingredientModalVisable, setIngredientModalVisable] = React.useState(false);
   const [ingredient, setIngredient] = React.useState({});
   const [error, setError] = React.useState(null);
+  const [orderNumber, setOrderNumber] = React.useState(0);
 
   React.useEffect(() => {
     getAllIngredients()
@@ -52,10 +53,10 @@ function App() {
           <AppHeader />
           <main className={styles.main}>
             <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
-            <BurgerConstructor onClick={handleOpenModalOrder} />
+            <BurgerConstructor setOrderNumber={setOrderNumber} onOpenModal={handleOpenModalOrder} />
           </main>
           <Modal onClose={handleCloseAllModal} isOpen={orderModalVisable}>
-            <OrderDetails />
+            <OrderDetails orderNumber={orderNumber} />
           </Modal>
           <Modal onClose={handleCloseAllModal} isOpen={ingredientModalVisable}>
             <IngredientDetails ingradient={ingredient} />

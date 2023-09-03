@@ -17,7 +17,7 @@ function reducer(state, action) {
   }
 }
 
-function BurgerConstructor({ onClick }) {
+function BurgerConstructor({ onOpenModal, setOrderNumber }) {
 
   const { ingredients } = React.useContext(IngredientsContext);
   const [bun, setBun] = React.useState({})
@@ -67,13 +67,13 @@ function BurgerConstructor({ onClick }) {
           positionName="низ"
         />
       </div>
-      <Order onClick={onClick} totalPrice={totalPrice} />
+      <Order onOpenModal={onOpenModal} setOrderNumber={setOrderNumber} totalPrice={totalPrice} />
     </section>
   )
 }
 
 export default BurgerConstructor;
 
-BurgerConstructor.propTypes = {
-  onClick: PropTypes.func.isRequired
-}
+// BurgerConstructor.propTypes = {
+//   onClick: PropTypes.func.isRequired
+// }

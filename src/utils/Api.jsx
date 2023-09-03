@@ -11,10 +11,21 @@ function handleResponse(res) {
 }
 
 export function getAllIngredients() {
-  return fetch(BASE_URL, {
+  return fetch(`${BASE_URL}/ingredients`, {
     headers: {
       'Content-Type': 'application/json'
     }
+  })
+    .then(handleResponse)
+}
+
+export function createOrder(allId) {
+  return fetch(`${BASE_URL}/orders`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "ingredients": allId })
   })
     .then(handleResponse)
 }
