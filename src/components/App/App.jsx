@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import styles from "./App.module.css"
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -17,6 +17,9 @@ function App() {
   const [ingredient, setIngredient] = React.useState({});
   const [error, setError] = React.useState(null);
   const [orderNumber, setOrderNumber] = React.useState(0);
+  const ingredientsContext = useMemo(() => {
+    return { ingredients, setIngredients }
+  }, [ingredients, setIngredients])
 
   React.useEffect(() => {
     getAllIngredients()
@@ -47,21 +50,23 @@ function App() {
       ?
       <ErrorBoundary error={error} />
       :
-      <IngredientsContext.Provider value={{ ingredients, setIngredients }}>
-        <div className={styles.app}>
-          <AppHeader />
+
+      <div className={styles.app}>
+        <AppHeader />
+        <IngredientsContext.Provider value={ingredientsContext}>
           <main className={styles.main}>
             <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
             <BurgerConstructor setOrderNumber={setOrderNumber} onOpenModal={handleOpenModalOrder} />
           </main>
-          <Modal onClose={handleCloseAllModal} isOpen={orderModalVisable}>
-            <OrderDetails orderNumber={orderNumber} />
-          </Modal>
-          <Modal onClose={handleCloseAllModal} isOpen={ingredientModalVisable}>
-            <IngredientDetails ingradient={ingredient} />
-          </Modal>
-        </div>
-      </IngredientsContext.Provider>)
+        </IngredientsContext.Provider>
+        <Modal onClose={handleCloseAllModal} isOpen={orderModalVisable}>
+          <OrderDetails orderNumber={orderNumber} />
+        </Modal>
+        <Modal onClose={handleCloseAllModal} isOpen={ingredientModalVisable}>
+          <IngredientDetails ingradient={ingredient} />
+        </Modal>
+      </div>
+    )
   );
 }
 

@@ -38,5 +38,5 @@ export default Order;
 Order.propTypes = {
   onOpenModal: PropTypes.func.isRequired,
   setOrderNumber: PropTypes.func.isRequired,
-  totalPrice: PropTypes.shape({ totalPrice: PropTypes.number.isRequired }),
+  totalPrice: PropTypes.shape({ totalPrice: PropTypes.number.isRequired }).isRequired,
 }
