@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from "./OrderDetails.module.css";
 import checkMark from "../../images/done.svg";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-function OrderDetails({ orderNumber }) {
+function OrderDetails() {
+  const { orderNumber } = useSelector(store => store.order);
   return (
     <>
       <h2 className={styles.totalPrice}>{orderNumber}</h2>
@@ -16,7 +17,3 @@ function OrderDetails({ orderNumber }) {
 }
 
 export default OrderDetails;
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
-}
