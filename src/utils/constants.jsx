@@ -1,7 +1,7 @@
 export const arrTitleIngredients = [
   {
     title: "Булки",
-    type: "bun"
+    type: "bun",
   },
   {
     title: "Соусы",

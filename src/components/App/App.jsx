@@ -9,6 +9,8 @@ import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { openIngredientModal, closeIngredientModal } from '../../services/reducers/currentIngredientSlice';
 import { closeModalOrder } from '../../services/reducers/orderSlice';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
@@ -28,8 +30,10 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
-        <BurgerConstructor />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
         <OrderDetails />

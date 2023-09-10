@@ -22,7 +22,7 @@
 }
 
 .container {
-  overflow-y: overlay;
+  overflow-y: scroll;
   height: calc(100vh - 284px);
 }
 

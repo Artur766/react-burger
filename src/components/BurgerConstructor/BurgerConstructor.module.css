@@ -1,4 +1,5 @@
 .constructorList {
+  width: 604px;
   composes: mt-25 from global;
   align-items: center;
   display: flex;
@@ -18,12 +19,16 @@
 }
 
 .scrollBarContainer {
+  min-height: 80px;
+  width: 100%;
+  box-sizing: border-box;
   overflow-y: overlay;
   max-height: 464px;
   align-items: flex-end;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 2px solid transparent;
 }
 
 /* Ширина и цвет полосы прокрутки */
