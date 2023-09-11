@@ -14,11 +14,9 @@ function BurgerIngredients({ title, onCardClick }) {
 
   const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
-
   React.useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-
   const h2Refs = React.useRef([]);
   const setH2Ref = (index) => (element) => {
     h2Refs.current[index] = element;
@@ -30,15 +28,13 @@ function BurgerIngredients({ title, onCardClick }) {
     const rectBuns = h2Refs.current[0].getBoundingClientRect().top;
     const rectSauce = h2Refs.current[1].getBoundingClientRect().top;
     const rectMain = h2Refs.current[2].getBoundingClientRect().top;
-    console.log("Булки", rectBuns);
-    console.log("Соусы", rectSauce);
-    console.log("Начинки", rectMain);
-    if (rectBuns < 0) {
-      setActive("buns")
-    } else if (rectSauce < 0) {
-      setActive("sauce")
-    } else if (rectMain < 0) {
-      setActive("main")
+    const scrollThreshold = window.innerHeight * 0.45; // Используем 45% от высоты окна просмотра
+    if (rectBuns <= scrollThreshold && rectSauce > scrollThreshold) {
+      setActive("buns");
+    } else if (rectSauce <= scrollThreshold && rectMain > scrollThreshold) {
+      setActive("sauce");
+    } else if (rectMain <= scrollThreshold) {
+      setActive("main");
     }
   }
 
@@ -60,9 +56,8 @@ function BurgerIngredients({ title, onCardClick }) {
                 arrTitleIngredients.map((typeIngred, i) => {
                   return (
                     <Fragment key={i}>
-                      <h2 className={styles.titleIngredients} ref={setH2Ref(i)}>{typeIngred.title}</h2>
-
-                      <div className={styles.cardsList}>
+                      <h2 className={styles.titleIngredients} >{typeIngred.title}</h2>
+                      <div className={styles.cardsList} ref={setH2Ref(i)}>
                         {
                           ingredients.map(item => {
                             return (

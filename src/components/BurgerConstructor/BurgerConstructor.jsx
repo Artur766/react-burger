@@ -6,67 +6,63 @@ import Order from './Order/Order';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addIngredient, deleteIngredient } from '../../services/reducers/ingredientsConstructorSlice';
+import { decrementCount, incrementCount } from '../../services/reducers/ingredientsSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.ingredientsConstructor);
-  const [bun, setBun] = React.useState({});
+
   const [{ isOver }, dropRef] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch(addIngredient(item));
+      dispatch(addIngredient({ ...item, id: uuidv4() }));
+      dispatch(incrementCount((item._id)));
     },
     collect: monitor => ({
       isOver: monitor.isOver()
     })
   });
-  const borderColor = isOver ? "#4c4cff" : "transparent";
-  const isLockedBun = ingredients.some(item => item.type === "main" || item.type === "sauce")
 
-  React.useEffect(() => {
-    //Ищем в массиве булку
-    const newBun = ingredients.find(elem => elem.type === "bun");
-    setBun(newBun);
-  }, [ingredients]);
+  const borderColor = isOver ? "#4c4cff" : "transparent";
+
+  function handleClose(_id, newId) {
+    dispatch(deleteIngredient(newId));
+    dispatch(decrementCount(_id));
+  }
 
   return (
     <section>
       <div className={styles.constructorList} >
-        {bun &&
-          <Bun
-            isLocked={isLockedBun}
-            type="top"
-            positionName="верх"
-            name={bun?.name}
-            image={bun?.image}
-            price={bun?.price}
-            id={bun?._id}
-          />}
-        <div className={styles.scrollBarContainer} ref={dropRef} style={{ borderColor }}>
+        <Bun
+          isLocked={ingredients.length && true}
+          type="top"
+          positionName="верх"
+        />
+        <div className={styles.scrollBarContainer} ref={dropRef} style={ingredients.length ? { borderColor } : {}}>
           {
-            ingredients.map((item) => {
-              return (item.type !== "bun" &&
-                <div key={item._id} className={styles.containerConstructorElement} >
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image_large}
-                    handleClose={() => dispatch(deleteIngredient(item._id))}
-                  />
-                </div>)
-            })
+            ingredients.length
+              ?
+              ingredients.map((item) => {
+                return (item.type !== "bun" &&
+                  <div key={item.id} className={styles.containerConstructorElement} >
+                    <DragIcon type="primary" />
+                    <ConstructorElement
+                      text={item.name}
+                      price={item.price}
+                      thumbnail={item.image_large}
+                      handleClose={() => handleClose(item._id, item.id)}
+                    />
+                  </div>)
+              })
+              :
+              <div className={styles.emptyElement} style={{ borderColor }}>Перенесите сюда ингредиенты</div>
           }
-        </div>
-        {bun && <Bun
-          isLocked={isLockedBun}
-          name={bun?.name}
-          image={bun?.image}
-          price={bun?.price}
+        </div> <Bun
+          isLocked={ingredients.length && true}
           type="bottom"
           positionName="низ"
-          id={bun?._id}
-        />}
+        />
       </div>
       <Order />
     </section>

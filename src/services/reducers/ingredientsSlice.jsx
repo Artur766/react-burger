@@ -24,7 +24,27 @@ const ingredientsSlice = createSlice({
     },
     getIngredientsSuccess(state, action) {
       state.ingredientsRequest = false;
-      state.ingredients = action.payload;
+      state.ingredients = action.payload.map(item => ({
+        ...item,
+        count: 0,
+      }));
+    },
+    incrementCount(state, action) {
+      const ingredient = state.ingredients.find(item => item._id === action.payload);
+      if (ingredient.type !== "bun") {
+        ingredient.count++;
+      } else {
+        ingredient.count += 2;
+      }
+    }
+    ,
+    decrementCount(state, action) {
+      const ingredient = state.ingredients.find(item => item._id === action.payload);
+      if (ingredient.type !== "bun" && ingredient) {
+        ingredient.count--;
+      } else {
+        ingredient.count -= 2;
+      }
     },
     getIngredientsFailed(state, action) {
       state.error = action.payload;
@@ -35,4 +55,10 @@ const ingredientsSlice = createSlice({
 
 export default ingredientsSlice.reducer;
 
-export const { getIngredientsRequest, getIngredientsFailed, getIngredientsSuccess } = ingredientsSlice.actions;
+export const {
+  getIngredientsRequest,
+  getIngredientsFailed,
+  getIngredientsSuccess,
+  incrementCount,
+  decrementCount
+} = ingredientsSlice.actions;

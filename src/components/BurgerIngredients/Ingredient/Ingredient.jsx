@@ -6,22 +6,37 @@ import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 import { useDrag } from "react-dnd";
 
 function Ingredient({ onCardClick, ingradient }) {
-
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
     item: ingradient,
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.5 : 1
     })
+  });
+
+  const [{ opacity: bunOpacity }, dragRefBun] = useDrag({
+    type: "bun",
+    item: ingradient,
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.5 : 1
+    })
   })
+  const dragRefToUse = ingradient.type !== "bun" ? dragRef : dragRefBun;
+  const opacityToUse = ingradient.type !== "bun" ? opacity : bunOpacity;
 
   function handleClickCard() {
     onCardClick(ingradient);
   }
 
+
   return (
-    < div ref={dragRef} className={styles.card} onClick={handleClickCard} style={{ opacity }}>
-      <Counter className={styles.counter} count={1} size="default" extraClass="m-1" />
+    < div
+      ref={dragRefToUse}
+      className={styles.card}
+      onClick={handleClickCard}
+      style={{ opacity: opacityToUse }}
+    >
+      {ingradient.count !== 0 && <Counter className={styles.counter} count={ingradient.count} size="default" extraClass="m-1" />}
       <img className={styles.image} src={ingradient.image} alt="ингредиент" />
       <div className={styles.containerIngredients}>
         <p className={styles.price}>{ingradient.price}</p>
