@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const LoaderSvg = ({ color = '#3C39EC', size }) => {
   return (
     <svg
@@ -25,3 +27,8 @@ export const LoaderSvg = ({ color = '#3C39EC', size }) => {
     </svg>
   );
 };
+
+LoaderSvg.propTypes = {
+  color: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+}

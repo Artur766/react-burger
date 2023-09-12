@@ -64,9 +64,7 @@ function Bun({ type, positionName, isLocked }) {
 export default Bun;
 
 Bun.propTypes = {
-  name: PropTypes.string,
-  price: PropTypes.number,
-  image: PropTypes.string,
   type: PropTypes.string.isRequired,
   positionName: PropTypes.string.isRequired,
+  isLocked: PropTypes.number.isRequired
 }

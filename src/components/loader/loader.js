@@ -1,5 +1,6 @@
 import style from './loader.module.css';
 import { LoaderSvg } from './loader.svg';
+import PropTypes from 'prop-types';
 
 const loaderSizes = {
   small: 16,
@@ -16,3 +17,8 @@ export const Loader = ({ size, inverse = false }) => {
     </div>
   );
 };
+
+Loader.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.string.isRequired,
+}

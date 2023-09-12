@@ -5,6 +5,7 @@ import { swapIngredient, deleteIngredient } from '../../../services/reducers/ing
 import { decrementCount } from '../../../services/reducers/ingredientsSlice'
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
+import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 
 function ConstructorIngredient({ ingredient }) {
 
@@ -50,4 +51,8 @@ function ConstructorIngredient({ ingredient }) {
   )
 }
 
-export default ConstructorIngredient
+export default ConstructorIngredient;
+
+ConstructorIngredient.propTypes = {
+  ingradient: IngredientPropTypes.isRequired
+}
