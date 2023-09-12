@@ -22,10 +22,21 @@ const ingredientsConstructorSlice = createSlice({
     },
     getTotalPrice(state) {
       state.totalPrice = state.ingredients.reduce((acc, item) => item.price + acc, 0) + state.bun.price * 2;
+    },
+    swapIngredient(state, action) {
+      const { currentIngredient, ingredient } = action.payload;
+      const currentIngredientIndex = state.ingredients.findIndex(item => item.id === currentIngredient.id);
+      const containerIngredientIndex = state.ingredients.findIndex(item => item.id === ingredient.id);
+
+      if (currentIngredientIndex !== -1 && containerIngredientIndex !== -1) {
+        // Обменять местами ингредиенты в массиве
+        [state.ingredients[currentIngredientIndex], state.ingredients[containerIngredientIndex]] =
+          [state.ingredients[containerIngredientIndex], state.ingredients[currentIngredientIndex]];
+      }
     }
   }
 });
 
 export default ingredientsConstructorSlice.reducer;
 
-export const { addIngredient, deleteIngredient, addBun, deleteBun, getTotalPrice } = ingredientsConstructorSlice.actions;
+export const { addIngredient, deleteIngredient, addBun, deleteBun, getTotalPrice, swapIngredient } = ingredientsConstructorSlice.actions;

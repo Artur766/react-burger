@@ -8,16 +8,6 @@
   min-height: 656px;
 }
 
-.containerConstructorElement {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 568px;
-  column-gap: 8px;
-  margin-right: 13px;
-  margin-left: 16px;
-}
-
 .scrollBarContainer {
   min-height: 80px;
   width: 100%;
@@ -29,6 +19,7 @@
   flex-direction: column;
   gap: 16px;
   border: 2px dashed transparent;
+  padding: 5px 0;
 }
 
 
@@ -69,5 +60,5 @@
   color: #F2F2F3;
   box-sizing: border-box;
   margin-right: 13px;
-  border: 2px solid transparent;
+  border: 2px dashed transparent;
 }

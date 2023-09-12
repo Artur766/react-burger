@@ -28,7 +28,6 @@ function Ingredient({ onCardClick, ingradient }) {
     onCardClick(ingradient);
   }
 
-
   return (
     < div
       ref={dragRefToUse}

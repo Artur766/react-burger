@@ -29,7 +29,7 @@
   line-height: 24px;
   color: #F2F2F3;
   box-sizing: border-box;
-  border: solid 2px;
+  border: dashed 2px;
 }
 
 .emptyElementPosTop {

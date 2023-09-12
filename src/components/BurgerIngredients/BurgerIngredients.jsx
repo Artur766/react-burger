@@ -9,20 +9,20 @@ import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import { Loader } from '../loader/loader';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
-
 function BurgerIngredients({ title, onCardClick }) {
 
   const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
   const h2Refs = React.useRef([]);
+  const [active, setActive] = React.useState("buns");
   const setH2Ref = (index) => (element) => {
     h2Refs.current[index] = element;
   };
-  const [active, setActive] = React.useState("buns");
 
+
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   function handleScroll() {
     const rectBuns = h2Refs.current[0].getBoundingClientRect().top;
