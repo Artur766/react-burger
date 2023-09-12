@@ -1,64 +1,65 @@
 import React from 'react';
 import styles from "./BurgerConstructor.module.css";
-import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import { IngredientPropTypes } from '../../utils/IngredientPropTypes';
+import Bun from './Bun/Bun';
+import Order from './Order/Order';
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from 'react-dnd/dist/hooks';
+import { addIngredient } from '../../services/reducers/ingredientsConstructorSlice';
+import { incrementCount } from '../../services/reducers/ingredientsSlice';
+import { v4 as uuidv4 } from 'uuid';
+import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient';
 
-function BurgerConstructor({ ingredients, onClick }) {
-  const img = "https://code.s3.yandex.net/react/code/bun-02.png";
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector(store => store.ingredientsConstructor);
+
+  const [{ isOver }, dropRef] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch(addIngredient({ ...item, id: uuidv4() }));
+      dispatch(incrementCount((item._id)));
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver()
+    })
+  });
+
+  const borderColor = isOver ? "#4c4cff" : "transparent";
+
   return (
     <section>
       <div className={styles.constructorList} >
-        <div className={styles.containerConstructorElement} >
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={img}
-          />
-        </div>
-        <div className={styles.scrollBarContainer}>
+        <Bun
+          isLocked={ingredients.length && true}
+          type="top"
+          positionName="верх"
+        />
+        <div className={styles.scrollBarContainer} ref={dropRef} style={ingredients.length ? { borderColor } : {}}>
           {
-            ingredients.map((item) => {
-              return (item.type !== "bun" &&
-                <div key={item._id} className={styles.containerConstructorElement} >
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image_large}
+            ingredients.length
+              ?
+              ingredients.map(item => {
+                return (item.type !== "bun" &&
+                  <ConstructorIngredient
+                    key={item.id}
+                    ingredient={item}
                   />
-                </div>)
-            })
+                )
+              })
+              :
+              <div className={styles.emptyElement} style={{ borderColor }}>Перенесите сюда ингредиенты</div>
           }
         </div>
-        <div className={styles.containerConstructorElement} >
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={img}
-          />
-        </div>
+        <Bun
+          isLocked={ingredients.length && true}
+          type="bottom"
+          positionName="низ"
+        />
       </div>
-      <div className={styles.containerDecoration} >
-        <div className={styles.containerTotalPrice}>
-          <p className={styles.totalPrice}>610</p>
-          <CurrencyIcon type="primary" />
-        </div>
-        <Button htmlType="button" type="primary" size="large" onClick={onClick}>
-          Оформить заказ
-        </Button>
-      </div>
+      <Order />
     </section>
   )
 }
 
-export default BurgerConstructor;
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes).isRequired,
-  onClick: PropTypes.func.isRequired
-}
+export default BurgerConstructor;

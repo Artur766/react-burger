@@ -1,4 +1,5 @@
 .constructorList {
+  width: 604px;
   composes: mt-25 from global;
   align-items: center;
   display: flex;
@@ -8,41 +9,19 @@
 }
 
 .scrollBarContainer {
+  min-height: 80px;
+  width: 100%;
+  box-sizing: border-box;
   overflow-y: overlay;
   max-height: 464px;
   align-items: flex-end;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border: 2px dashed transparent;
+  padding: 5px 0;
 }
 
-.containerConstructorElement {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 568px;
-  column-gap: 8px;
-  margin-right: 8px;
-  margin-left: 16px;
-}
-
-.containerDecoration {
-  display: flex;
-  max-width: 568px;
-  justify-content: flex-end;
-  column-gap: 40px;
-  margin: 40px auto 0;
-}
-
-.containerTotalPrice {
-  display: flex;
-  align-items: center;
-  column-gap: 8px;
-}
-
-.totalPrice {
-  composes: text text_type_digits-medium from global;
-}
 
 /* Ширина и цвет полосы прокрутки */
 .scrollBarContainer::-webkit-scrollbar {
@@ -62,4 +41,24 @@
 /* Стилизация трека (фоновой области) */
 .scrollBarContainer::-webkit-scrollbar-track {
   background-color: #2F2F37;
+}
+
+.emptyElement {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  justify-content: center;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 24px;
+  color: #F2F2F3;
+  box-sizing: border-box;
+  margin-right: 13px;
+  border: 2px dashed transparent;
 }

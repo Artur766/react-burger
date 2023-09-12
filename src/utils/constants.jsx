@@ -1,7 +1,7 @@
 export const arrTitleIngredients = [
   {
     title: "Булки",
-    type: "bun"
+    type: "bun",
   },
   {
     title: "Соусы",
@@ -13,4 +13,4 @@ export const arrTitleIngredients = [
   }
 ];
 
-export const BASE_URL = "https://norma.nomoreparties.space/api/ingredients";
+export const BASE_URL = "https://norma.nomoreparties.space/api";
