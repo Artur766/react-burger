@@ -5,7 +5,7 @@ import Order from './Order/Order';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addIngredient, resetConstructor } from '../../services/reducers/ingredientsConstructorSlice';
-import { incrementCount } from '../../services/reducers/ingredientsSlice';
+import { incrementCount, resetCount } from '../../services/reducers/ingredientsSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient';
 
@@ -30,6 +30,7 @@ function BurgerConstructor() {
   React.useEffect(() => {
     if (modalOrdervisable) {
       dispatch(resetConstructor());
+      dispatch(resetCount());
     }
   }, [modalOrdervisable])
 

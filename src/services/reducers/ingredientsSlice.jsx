@@ -1,14 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAllIngredients } from "../../utils/Api";
 
-export function getIngredients() {
-  return function (dispatch) {
-    dispatch(getIngredientsRequest());
-    getAllIngredients()
-      .then(res => dispatch(getIngredientsSuccess(res.data)))
-      .catch(err => dispatch(getIngredientsFailed(err.message)))
+export const getIngredients = createAsyncThunk(
+  "ingredients/getIngredients", async () => {
+    const response = await getAllIngredients();
+    return response.data;
   }
-}
+)
 
 const ingredientsSlice = createSlice({
   name: "ingredients",
@@ -18,17 +16,6 @@ const ingredientsSlice = createSlice({
     ingredientsRequest: false,
   },
   reducers: {
-    getIngredientsRequest(state) {
-      state.ingredientsRequest = true;
-      state.error = "";
-    },
-    getIngredientsSuccess(state, action) {
-      state.ingredientsRequest = false;
-      state.ingredients = action.payload.map(item => ({
-        ...item,
-        count: 0,
-      }));
-    },
     incrementCount(state, action) {
       const ingredient = state.ingredients.find(item => item._id === action.payload);
       if (ingredient.type !== "bun") {
@@ -46,11 +33,29 @@ const ingredientsSlice = createSlice({
         ingredient.count -= 2;
       }
     },
-    getIngredientsFailed(state, action) {
-      state.error = action.payload;
-      state.ingredientsRequest = false;
+    resetCount(state) {
+      state.ingredients = state.ingredients.map(item => ({ ...item, count: 0 }))
     }
   },
+  extraReducers: builder => {
+    builder
+      .addCase(getIngredients.pending, (state) => {
+        state.ingredientsRequest = true;
+        state.error = "";
+      })
+      .addCase(getIngredients.fulfilled, (state, action) => {
+        state.ingredientsRequest = false;
+        state.ingredients = action.payload.map(item => ({
+          ...item,
+          count: 0,
+        }));
+      })
+      .addCase(getIngredients.rejected, (state, action) => {
+        state.error = action.payload;
+        state.ingredientsRequest = false;
+        state.ingredients = [];
+      });
+  }
 })
 
 export default ingredientsSlice.reducer;
@@ -60,5 +65,6 @@ export const {
   getIngredientsFailed,
   getIngredientsSuccess,
   incrementCount,
-  decrementCount
+  decrementCount,
+  resetCount
 } = ingredientsSlice.actions;

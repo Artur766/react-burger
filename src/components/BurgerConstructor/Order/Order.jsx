@@ -13,6 +13,7 @@ function Order() {
 
   function handleCreateOrder() {
     const ingredientsId = ingredients.map(item => item._id);
+    ingredientsId.push(bun._id)
     dispatch(createOrderNumber(ingredientsId))
   }
 
