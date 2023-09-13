@@ -54,5 +54,5 @@ function ConstructorIngredient({ ingredient }) {
 export default ConstructorIngredient;
 
 ConstructorIngredient.propTypes = {
-  ingradient: IngredientPropTypes.isRequired
+  ingredient: IngredientPropTypes.isRequired
 }

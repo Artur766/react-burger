@@ -4,7 +4,7 @@ import Bun from './Bun/Bun';
 import Order from './Order/Order';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from 'react-dnd/dist/hooks';
-import { addIngredient } from '../../services/reducers/ingredientsConstructorSlice';
+import { addIngredient, resetConstructor } from '../../services/reducers/ingredientsConstructorSlice';
 import { incrementCount } from '../../services/reducers/ingredientsSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient';
@@ -12,6 +12,7 @@ import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(store => store.ingredientsConstructor);
+  const { modalOrdervisable } = useSelector(store => store.order);
 
   const [{ isOver }, dropRef] = useDrop({
     accept: "ingredient",
@@ -26,11 +27,17 @@ function BurgerConstructor() {
 
   const borderColor = isOver ? "#4c4cff" : "transparent";
 
+  React.useEffect(() => {
+    if (modalOrdervisable) {
+      dispatch(resetConstructor());
+    }
+  }, [modalOrdervisable])
+
   return (
     <section>
       <div className={styles.constructorList} >
         <Bun
-          isLocked={ingredients.length && true}
+          isLocked={ingredients.length < 0 && true}
           type="top"
           positionName="верх"
         />
@@ -51,7 +58,7 @@ function BurgerConstructor() {
           }
         </div>
         <Bun
-          isLocked={ingredients.length && true}
+          isLocked={ingredients.length < 0 && true}
           type="bottom"
           positionName="низ"
         />

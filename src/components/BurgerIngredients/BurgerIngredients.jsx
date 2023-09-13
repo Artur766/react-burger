@@ -19,7 +19,6 @@ function BurgerIngredients({ title, onCardClick }) {
     h2Refs.current[index] = element;
   };
 
-
   React.useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
