@@ -31,7 +31,7 @@ function Order() {
           <p className={styles.totalPrice}>{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={handleCreateOrder}>
+        <Button htmlType="button" type="primary" size="large" onClick={handleCreateOrder} disabled={bun.price === 0 ? true : false}>
           Оформить заказ
         </Button>
       </div >
