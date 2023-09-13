@@ -33,10 +33,21 @@ const ingredientsConstructorSlice = createSlice({
         [state.ingredients[currentIngredientIndex], state.ingredients[containerIngredientIndex]] =
           [state.ingredients[containerIngredientIndex], state.ingredients[currentIngredientIndex]];
       }
+    },
+    resetConstructor(state) {
+      state.ingredients = [];
+      state.bun = { price: 0 };
     }
   }
 });
 
 export default ingredientsConstructorSlice.reducer;
 
-export const { addIngredient, deleteIngredient, addBun, deleteBun, getTotalPrice, swapIngredient } = ingredientsConstructorSlice.actions;
+export const {
+  addIngredient,
+  deleteIngredient,
+  addBun, deleteBun,
+  getTotalPrice,
+  swapIngredient,
+  resetConstructor,
+} = ingredientsConstructorSlice.actions;

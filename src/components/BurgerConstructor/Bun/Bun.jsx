@@ -66,5 +66,8 @@ export default Bun;
 Bun.propTypes = {
   type: PropTypes.string.isRequired,
   positionName: PropTypes.string.isRequired,
-  isLocked: PropTypes.number.isRequired
+  isLocked: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]).isRequired,
 }
