@@ -29,3 +29,14 @@ export function createOrder(allId) {
   })
     .then(handleResponse)
 }
+
+export function forgotPassword(emailValue) {
+  return fetch(`${BASE_URL}/password-reset`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "email": emailValue })
+  })
+    .then(handleResponse)
+}

@@ -1,25 +1,22 @@
 import React from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import styles from "./App.module.css"
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from "react-redux";
-import { openIngredientModal, closeIngredientModal } from '../../services/reducers/currentIngredientSlice';
+import { closeIngredientModal } from '../../services/reducers/currentIngredientSlice';
 import { closeModalOrder } from '../../services/reducers/orderSlice';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import Main from '../../pages/Main/Main';
+import Register from '../../pages/Register/Register';
+import Login from '../../pages/Login/Login';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
 function App() {
   const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
   const { modalOrdervisable } = useSelector(store => store.order)
   const dispatch = useDispatch();
-
-  function handleOpenModalIngredient(dataIngredient) {
-    dispatch(openIngredientModal(dataIngredient))
-  }
 
   function handleCloseAllModal() {
     dispatch(closeIngredientModal());
@@ -29,12 +26,11 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={styles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients title="Соберите бургер" onCardClick={handleOpenModalIngredient} />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
+      {/* <Main /> */}
+      {/* <Register /> */}
+      {/* <Login /> */}
+      <ForgotPassword />
+      {/* <ResetPassword /> */}
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
         <OrderDetails />
       </Modal>

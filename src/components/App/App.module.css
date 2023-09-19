@@ -2,9 +2,3 @@
   min-width: 320px;
   margin: 0 auto;
 }
-
-.main {
-  display: flex;
-  justify-content: center;
-  column-gap: 40px;
-}
