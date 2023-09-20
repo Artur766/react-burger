@@ -13,6 +13,8 @@ import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import { Route, Routes } from 'react-router-dom';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
@@ -27,12 +29,15 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      {/* <Main /> */}
-      {/* <Register /> */}
-      {/* <Login /> */}
-      {/* <ForgotPassword /> */}
-      {/* <ResetPassword /> */}
-      <Profile />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
         <OrderDetails />
       </Modal>
