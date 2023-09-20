@@ -3,7 +3,7 @@ import styles from "./ForgotPassword.module.css"
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
-import { forgotPassword } from '../../utils/Api';
+import { forgotPassword } from '../../utils/api';
 import { Loader } from '../../components/loader/loader';
 
 function ForgotPassword() {
@@ -36,6 +36,7 @@ function ForgotPassword() {
           errorText={errors["email"]}
           size={'default'}
           extraClass="ml-1"
+          required
         />
         {isLoading ?
           <Loader size="medium" />

@@ -41,6 +41,10 @@
   color: #F2F2F3;
 }
 
+.activeNavigation {
+  color: #F2F2F3;
+}
+
 .profile {
   composes: navigationItem;
 }

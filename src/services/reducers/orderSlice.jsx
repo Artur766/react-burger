@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createOrder } from '../../utils/Api';
+import { createOrder } from '../../utils/api';
 
 
 export const createOrderNumber = createAsyncThunk(

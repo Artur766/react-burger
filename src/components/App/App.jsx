@@ -12,6 +12,7 @@ import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
 
 function App() {
   const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
@@ -29,8 +30,9 @@ function App() {
       {/* <Main /> */}
       {/* <Register /> */}
       {/* <Login /> */}
-      <ForgotPassword />
+      {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
+      <Profile />
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
         <OrderDetails />
       </Modal>

@@ -1,6 +1,5 @@
 import { BASE_URL } from "./constants";
 
-
 function handleResponse(res) {
   if (res.ok) return res.json();
   return res.json()
@@ -37,6 +36,17 @@ export function forgotPassword(emailValue) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ "email": emailValue })
+  })
+    .then(handleResponse)
+}
+
+export function resetPassword(password, token) {
+  return fetch(`${BASE_URL}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "password": password, "token": token })
   })
     .then(handleResponse)
 }
