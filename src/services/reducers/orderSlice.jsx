@@ -35,7 +35,7 @@ const orderSlice = createSlice({
         state.orderNumber = action.payload
       })
       .addCase(createOrderNumber.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.error.message || "Произошла ошибка";
         state.orderRequest = false;
         state.orderNumber = 0;
         state.modalOrdervisable = false;

@@ -51,7 +51,7 @@ const ingredientsSlice = createSlice({
         }));
       })
       .addCase(getIngredients.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.error.message || "Произошла ошибка";
         state.ingredientsRequest = false;
         state.ingredients = [];
       });

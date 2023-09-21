@@ -33,6 +33,7 @@ function Profile() {
           name={'password'}
           icon="EditIcon"
           extraClass={styles.input}
+          pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         />
         <PasswordInput
           // onChange={onChange}

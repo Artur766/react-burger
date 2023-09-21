@@ -19,7 +19,7 @@ function ResetPassword() {
       .then(res => {
         console.log(res);
       })
-      .catch(err => setIsError(err))
+      .catch(err => setIsError(err.message))
       .finally(() => setIsLoading(false));
   }
 

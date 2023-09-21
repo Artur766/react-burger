@@ -37,6 +37,7 @@ function ForgotPassword() {
           size={'default'}
           extraClass="ml-1"
           required
+          pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         />
         {isLoading ?
           <Loader size="medium" />
