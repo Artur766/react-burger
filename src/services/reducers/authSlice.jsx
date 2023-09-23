@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginApi, registerApi } from "../../utils/auth";
+import { getUserInfoApi, loginApi, logoutApi, registerApi, updateUserInfoApi } from "../../utils/auth";
+import Cookies from 'js-cookie';
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -17,6 +18,30 @@ export const login = createAsyncThunk(
   }
 )
 
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async () => {
+    const response = await logoutApi(Cookies.get("refreshToken"));
+    return response;
+  }
+)
+
+export const getUserInfo = createAsyncThunk(
+  "auth/getUser",
+  async () => {
+    const response = await getUserInfoApi();
+    return response;
+  }
+)
+
+export const updateUserInfo = createAsyncThunk(
+  "auth/updateUser",
+  async ({ name, email, password }) => {
+    const response = await updateUserInfoApi(name, email, password);
+    return response;
+  }
+)
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -26,13 +51,17 @@ const authSlice = createSlice({
     },
     loading: false,
     error: "",
+    successUpdateUser: false,
   },
   reducers: {
-
+    resetSubmitMessageRequest(state) {
+      state.error = "";
+      state.successUpdateUser = "";
+    }
   },
   extraReducers: builder => {
     builder
-      .addCase(register.pending, (state, action) => {
+      .addCase(register.pending, (state) => {
         state.loading = true;
         state.error = "";
       })
@@ -62,9 +91,57 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || "Произошла ошибка";
       })
+      .addCase(logout.pending, (state, action) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = {
+          name: "",
+          email: "",
+        }
+        Cookies.remove("token");
+        Cookies.remove("refreshToken");
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Произошла ошибка";
+      })
+      .addCase(getUserInfo.pending, (state, action) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(getUserInfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = {
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        }
+      })
+      .addCase(getUserInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Произошла ошибка";
+      })
+      .addCase(updateUserInfo.pending, (state, action) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = {
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        }
+        state.successUpdateUser = action.payload.success;
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Произошла ошибка";
+      })
   }
 });
 
 export default authSlice.reducer;
 
-export const { } = authSlice.actions;
+export const { resetSubmitMessageRequest } = authSlice.actions;

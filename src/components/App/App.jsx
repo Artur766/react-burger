@@ -15,11 +15,18 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
+import Orders from '../Orders/Orders';
+import UserForm from '../UserForm/UserForm';
+import { getUserInfo } from '../../services/reducers/authSlice';
 
 function App() {
   const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
   const { modalOrdervisable } = useSelector(store => store.order)
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getUserInfo());
+  }, []);
 
   function handleCloseAllModal() {
     dispatch(closeIngredientModal());
@@ -35,7 +42,10 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile />} >
+          <Route path="" element={<UserForm />} />
+          <Route path="orders" element={<Orders />} />
+        </Route>
         <Route path='/*' element={<NotFound />} />
       </Routes>
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
