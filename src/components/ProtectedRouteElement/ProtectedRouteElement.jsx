@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { getUserInfo } from '../../services/reducers/authSlice';
 
 export const ProtectedRouteElement = ({ element }) => {
-  const { user, resetDone } = useSelector(store => store.auth);
+  const { user } = useSelector(store => store.auth);
   const [isUserLoaded, setUserLoaded] = React.useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -14,7 +14,6 @@ export const ProtectedRouteElement = ({ element }) => {
       await dispatch(getUserInfo());
       setUserLoaded(true);
     };
-
     init();
   }, []);
 
