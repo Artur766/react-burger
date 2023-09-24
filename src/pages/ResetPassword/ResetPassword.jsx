@@ -1,26 +1,34 @@
 import React from 'react';
 import styles from "./ResetPassword.module.css";
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { resetPassword } from '../../utils/api';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
 
 function ResetPassword() {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState("");
+  const navigate = useNavigate();
+  const { resetDone } = useSelector(store => store.auth);
 
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true)
     resetPassword(values["password"], values["cod"])
       .then(res => {
-        console.log(res);
+        navigate("/login", { replace: true })
       })
       .catch(err => setIsError(err.message))
       .finally(() => setIsLoading(false));
+  }
+
+  if (!resetDone) { // если пользователь не проходил этап forgot-password возвращаем его туда
+    return <Navigate to="/forgot-password" replace />
   }
 
   return (

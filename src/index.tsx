@@ -20,7 +20,7 @@ const store = configureStore({
 
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename='/react-burger'>
       <App />
     </BrowserRouter>
   </Provider>

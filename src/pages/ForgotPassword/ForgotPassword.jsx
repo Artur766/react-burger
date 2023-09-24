@@ -1,26 +1,29 @@
 import React from 'react';
 import styles from "./ForgotPassword.module.css"
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
-import { forgotPassword } from '../../utils/api';
 import { Loader } from '../../components/loader/loader';
+import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from 'react-redux';
+import { forgotPassword } from '../../services/reducers/authSlice';
 
 function ForgotPassword() {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isError, setIsError] = React.useState("");
+  const { loading, error } = useSelector(store => store.auth)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
-    forgotPassword(values["email"])
-      .then(res => {
-      })
-      .catch(err => setIsError(err.message))
-      .finally(() => setIsLoading(false));
+    dispatch(forgotPassword(values.email))
+      .then((res) => {
+        navigate("/reset-password");
+      });
   }
+
+  if (Cookies.get("token")) return <Navigate to="/" replace />
 
   return (
     <main className={styles.main}>
@@ -39,7 +42,7 @@ function ForgotPassword() {
           required
           pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         />
-        {isLoading ?
+        {loading ?
           <Loader size="medium" />
           :
           <Button
@@ -52,7 +55,7 @@ function ForgotPassword() {
             Восстановить
           </Button>
         }
-        {isError && <span className='error'>{isError}</span>}
+        {error && <span className='error'>{error}</span>}
         <p className={styles.text}>Вспомнили пароль?
           <Link to="/login" className={styles.link}> Войти</Link>
         </p>

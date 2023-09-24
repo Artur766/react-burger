@@ -29,7 +29,7 @@ export function createOrder(allId) {
     .then(handleResponse)
 }
 
-export function forgotPassword(emailValue) {
+export function forgotPasswordApi(emailValue) {
   return fetch(`${BASE_URL}/password-reset`, {
     method: "POST",
     headers: {

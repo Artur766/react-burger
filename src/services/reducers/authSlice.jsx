@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUserInfoApi, loginApi, logoutApi, registerApi, updateUserInfoApi } from "../../utils/auth";
 import Cookies from 'js-cookie';
+import { forgotPasswordApi } from "../../utils/api";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -14,6 +15,14 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
     const response = await loginApi(email, password);
+    return response;
+  }
+)
+
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async ({ email }) => {
+    const response = await forgotPasswordApi(email);
     return response;
   }
 )
@@ -52,6 +61,7 @@ const authSlice = createSlice({
     loading: false,
     error: "",
     successUpdateUser: false,
+    resetDone: false
   },
   reducers: {
     resetSubmitMessageRequest(state) {
@@ -87,6 +97,18 @@ const authSlice = createSlice({
           email: action.payload.user.email,
         }
       })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.resetDone = true;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Произошла ошибка";
+      })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Произошла ошибка";
@@ -121,7 +143,6 @@ const authSlice = createSlice({
       })
       .addCase(getUserInfo.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || "Произошла ошибка";
       })
       .addCase(updateUserInfo.pending, (state, action) => {
         state.loading = true;

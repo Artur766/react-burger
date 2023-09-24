@@ -1,11 +1,13 @@
 import React from 'react'
 import styles from "./Login.module.css"
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../services/reducers/authSlice';
+import Cookies from 'js-cookie';
+
 function Login() {
   const { values, errors, isValid, handleChange } = useFormValidation();
   const dispatch = useDispatch();
@@ -17,11 +19,13 @@ function Login() {
     dispatch(login({ email: values["email"], password: values["password"] }))
       .then(res => {
         if (res.payload) {
-          navigate("/", { replace: true });
+          const pathname = localStorage.getItem("redirectPath");
+          navigate(pathname, { replace: true });
         }
       })
-      .catch(err => console.log(err))
   }
+
+  if (Cookies.get("token")) return <Navigate to="/" replace />
 
   return (
     <main className={styles.main}>
