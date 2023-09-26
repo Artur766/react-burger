@@ -13,21 +13,30 @@ import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
 import { ProtectedRouteElement } from '../ProtectedRouteElement/ProtectedRouteElement';
+import { getIngredients } from '../../services/reducers/ingredientsSlice';
 
 function App() {
-  const { currentIngredient, modalIngredientVisable } = useSelector(store => store.currentIngredient);
+  const { modalIngredientVisable, idParams } = useSelector(store => store.currentIngredient);
   const { modalOrdervisable } = useSelector(store => store.order);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleCloseAllModal() {
+    navigate("/")
     dispatch(closeIngredientModal());
     dispatch(closeModalOrder());
+    localStorage.removeItem("ingredientModalOpen");
   }
+
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
@@ -42,13 +51,24 @@ function App() {
           <Route path="" element={<UserForm />} />
           <Route path="orders" element={<Orders />} />
         </Route>
+        <Route path='/ingredient/:id' element={
+          <>
+            {idParams
+              ?
+              <IngredientDetails />
+              :
+              <>
+                < Main />
+                <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable}>
+                  <IngredientDetails />
+                </Modal>
+              </>}
+          </>
+        } />
         <Route path='/*' element={<NotFound />} />
       </Routes>
       <Modal onClose={handleCloseAllModal} isOpen={modalOrdervisable}>
         <OrderDetails />
-      </Modal>
-      <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable}>
-        <IngredientDetails ingradient={currentIngredient} />
       </Modal>
     </div>
   );

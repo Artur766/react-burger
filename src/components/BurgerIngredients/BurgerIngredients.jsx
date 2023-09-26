@@ -4,24 +4,18 @@ import Tabs from './Tabs/Tabs';
 import { arrTitleIngredients } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
-import { useSelector, useDispatch } from 'react-redux';
-import { getIngredients } from '../../services/reducers/ingredientsSlice';
+import { useSelector } from 'react-redux';
 import { Loader } from '../loader/loader';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
-function BurgerIngredients({ title, onCardClick }) {
+function BurgerIngredients({ title }) {
 
   const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
-  const dispatch = useDispatch();
   const h2Refs = React.useRef([]);
   const [active, setActive] = React.useState("buns");
   const setH2Ref = (index) => (element) => {
     h2Refs.current[index] = element;
   };
-
-  React.useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   function handleScroll() {
     const rectBuns = h2Refs.current[0].getBoundingClientRect().top;
@@ -63,7 +57,6 @@ function BurgerIngredients({ title, onCardClick }) {
                               item.type === typeIngred.type &&
                               <Ingredient
                                 key={item._id}
-                                onCardClick={onCardClick}
                                 ingradient={item}
                               />
                             )
@@ -82,7 +75,6 @@ function BurgerIngredients({ title, onCardClick }) {
 
 BurgerIngredients.propTypes = {
   title: PropTypes.string.isRequired,
-  onCardClick: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;

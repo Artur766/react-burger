@@ -4,8 +4,15 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from 'prop-types';
 import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 import { useDrag } from "react-dnd";
+import { useDispatch } from 'react-redux';
+import { openIngredientModal } from '../../../services/reducers/currentIngredientSlice';
+import { useNavigate } from 'react-router-dom';
 
-function Ingredient({ onCardClick, ingradient }) {
+function Ingredient({ ingradient }) {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
     item: ingradient,
@@ -25,7 +32,9 @@ function Ingredient({ onCardClick, ingradient }) {
   const opacityToUse = ingradient.type !== "bun" ? opacity : bunOpacity;
 
   function handleClickCard() {
-    onCardClick(ingradient);
+    dispatch(openIngredientModal(ingradient));
+    navigate(`/ingredient/${ingradient._id}`);
+    localStorage.setItem("ingredientModalOpen", true);
   }
 
   return (
@@ -49,5 +58,4 @@ export default Ingredient;
 
 Ingredient.propTypes = {
   ingradient: IngredientPropTypes.isRequired,
-  onCardClick: PropTypes.func.isRequired
 }
