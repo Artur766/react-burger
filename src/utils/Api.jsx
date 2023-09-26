@@ -9,44 +9,44 @@ function handleResponse(res) {
     });
 }
 
+function request(url, options) {
+  return fetch(url, options).then(handleResponse)
+}
+
 export function getAllIngredients() {
-  return fetch(`${BASE_URL}/ingredients`, {
+  return request(`${BASE_URL}/ingredients`, {
     headers: {
       'Content-Type': 'application/json'
     }
   })
-    .then(handleResponse)
 }
 
 export function createOrder(allId) {
-  return fetch(`${BASE_URL}/orders`, {
+  return request(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ "ingredients": allId })
   })
-    .then(handleResponse)
 }
 
 export function forgotPasswordApi(emailValue) {
-  return fetch(`${BASE_URL}/password-reset`, {
+  return request(`${BASE_URL}/password-reset`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ "email": emailValue })
   })
-    .then(handleResponse)
 }
 
 export function resetPassword(password, token) {
-  return fetch(`${BASE_URL}/password-reset/reset`, {
+  return request(`${BASE_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ "password": password, "token": token })
   })
-    .then(handleResponse)
 }

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUserInfoApi, loginApi, logoutApi, registerApi, updateUserInfoApi } from "../../utils/auth";
 import Cookies from 'js-cookie';
-import { forgotPasswordApi } from "../../utils/api";
+import { forgotPasswordApi } from "../../utils/Api";
 
 export const register = createAsyncThunk(
   "auth/register",

@@ -13,7 +13,6 @@ function Login() {
   const dispatch = useDispatch();
   const { loading, error } = useSelector(store => store.auth);
   const navigate = useNavigate();
-
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(login({ email: values["email"], password: values["password"] }))

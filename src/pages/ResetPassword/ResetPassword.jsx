@@ -4,8 +4,7 @@ import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
-import { resetPassword } from '../../utils/api';
-import Cookies from 'js-cookie';
+import { resetPassword } from '../../utils/Api';
 import { useSelector } from 'react-redux';
 
 function ResetPassword() {
