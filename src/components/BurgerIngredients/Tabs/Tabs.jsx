@@ -3,7 +3,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./Тabs.module.css";
 import PropTypes from 'prop-types';
 
-function Tabs({ currentTab, onClickTab }) {
+function Tabs({ currentTab }) {
 
 
   return (

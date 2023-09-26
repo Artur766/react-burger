@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { getUserInfo } from '../../services/reducers/authSlice';
+import PropTypes from 'prop-types';
 
 export const ProtectedRouteElement = ({ element }) => {
   const { user } = useSelector(store => store.auth);
@@ -28,4 +29,8 @@ export const ProtectedRouteElement = ({ element }) => {
   }
 
   return element;
+}
+
+ProtectedRouteElement.propTypes = {
+  isOpen: PropTypes.elementType,
 }

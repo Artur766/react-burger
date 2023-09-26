@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from "./Ingredient.module.css";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 import { useDrag } from "react-dnd";
 import { useDispatch } from 'react-redux';

@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from "./BurgerMenu.module.css";
 import { CloseIcon, ProfileIcon, BurgerIcon, ListIcon, ArrowDownIcon, ArrowUpIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+
 function BurgerMenu({ closeMenu }) {
   const [isProfile, setIsProfile] = React.useState(false);
   function handleMenuProfile() {
@@ -36,3 +38,7 @@ function BurgerMenu({ closeMenu }) {
 }
 
 export default BurgerMenu;
+
+BurgerMenu.propTypes = {
+  closeMenu: PropTypes.func.isRequired,
+}
