@@ -14,7 +14,7 @@ function IngredientDetails() {
   React.useEffect(() => {
     const ingredient = ingredients.find(item => item._id === id);
     if (!modalIngredientVisable && !localStorage.getItem("ingredientModalOpen")) {
-      dispatch(visableIngredientDetails({ idParams: id, dataIngredient: ingredient }));
+      dispatch(visableIngredientDetails(ingredient));
     } else {
       dispatch(openIngredientModal(ingredient));
     }
@@ -22,8 +22,9 @@ function IngredientDetails() {
 
   return (
     <div className={`${!modalIngredientVisable && styles.container}`}>
-      <img className={styles.image} src={currentIngredient?.image_large} alt="" />
-      <p className={styles.title}>{currentIngredient?.name}</p>
+      {!modalIngredientVisable && <h1 className={styles.title}>Детали ингредиента</h1>}
+      <img className={styles.image} src={currentIngredient?.image_large} alt="ингредиент" />
+      <p className={styles.titleIngredient}>{currentIngredient?.name}</p>
       <div className={styles.containerSpecifications}>
         <div>
           <p className={styles.text}>Калории,ккал</p>

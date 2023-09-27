@@ -21,11 +21,12 @@ import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElemen
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 
 function App() {
-  const { modalIngredientVisable, idParams } = useSelector(store => store.currentIngredient);
+  const { modalIngredientVisable } = useSelector(store => store.currentIngredient);
   const { modalOrdervisable } = useSelector(store => store.order);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   function handleCloseAllModal() {
     navigate("/")
@@ -37,17 +38,6 @@ function App() {
   React.useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-
-  // let location = useLocation();
-
-  // // This piece of state is set when one of the
-  // // gallery links is clicked. The `background` state
-  // // is the location that we were at when one of
-  // // the gallery links was clicked. If it's there,
-  // // use it as the location for the <Switch> so
-  // // we show the gallery in the background, behind
-  // // the modal.
-  // let background = location.state && location.state.background;
 
   return (
     <div className={styles.app}>
@@ -63,18 +53,16 @@ function App() {
           <Route path="orders" element={<Orders />} />
         </Route>
         <Route path='/ingredient/:id' element={
-          <>
-            {idParams
-              ?
-              <IngredientDetails />
-              :
-              <>
-                < Main />
-                <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable} title="Детали ингредиента">
-                  <IngredientDetails />
-                </Modal>
-              </>}
-          </>
+          background
+            ?
+            <>
+              < Main />
+              <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable} title="Детали ингредиента">
+                <IngredientDetails />
+              </Modal>
+            </>
+            :
+            <IngredientDetails />
         } />
         <Route path='/*' element={<NotFound />} />
       </Routes>
