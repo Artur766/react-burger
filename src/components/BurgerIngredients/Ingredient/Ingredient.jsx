@@ -5,10 +5,10 @@ import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
 import { useDrag } from "react-dnd";
 import { useDispatch } from 'react-redux';
 import { openIngredientModal } from '../../../services/reducers/currentIngredientSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Ingredient({ ingradient }) {
-
+  let location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ function Ingredient({ ingradient }) {
 
   function handleClickCard() {
     dispatch(openIngredientModal(ingradient));
-    navigate(`/ingredient/${ingradient._id}`);
+    navigate(`/ingredient/${ingradient._id}`, { state: { background: location } });
     localStorage.setItem("ingredientModalOpen", true);
   }
 

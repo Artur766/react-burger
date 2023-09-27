@@ -1,30 +1,29 @@
 import React from 'react'
 import styles from "./Login.module.css"
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../services/reducers/authSlice';
-import Cookies from 'js-cookie';
 
 function Login() {
   const { values, errors, isValid, handleChange } = useFormValidation();
   const dispatch = useDispatch();
   const { loading, error } = useSelector(store => store.auth);
   const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(login({ email: values["email"], password: values["password"] }))
       .then(res => {
         if (res.payload) {
           const pathname = localStorage.getItem("redirectPath");
+          console.log(pathname);
           navigate(pathname, { replace: true });
         }
       })
   }
-
-  if (Cookies.get("token")) return <Navigate to="/" replace />
 
   return (
     <main className={styles.main}>
@@ -38,7 +37,7 @@ function Login() {
           name={'email'}
           error={errors["email"] ? true : false}
           errorText={errors["email"]}
-          pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
+          required
         />
         <PasswordInput
           value={values["password"] || ""}
@@ -49,6 +48,7 @@ function Login() {
           errorText={errors["password"]}
           minLength={8}
           maxLength={28}
+          required
         />
         {loading ?
           <Loader size="medium" />

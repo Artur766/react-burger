@@ -35,13 +35,7 @@ export const logout = createAsyncThunk(
   }
 )
 
-export const getUserInfo = createAsyncThunk(
-  "auth/getUser",
-  async () => {
-    const response = await getUserInfoApi();
-    return response;
-  }
-)
+export const getUserInfo = createAsyncThunk("auth/getUser", getUserInfoApi);
 
 export const updateUserInfo = createAsyncThunk(
   "auth/updateUser",
@@ -56,12 +50,14 @@ const authSlice = createSlice({
   initialState: {
     user: {
       name: "",
-      email: ""
+      email: "",
+
     },
     loading: false,
     error: "",
     successUpdateUser: false,
-    resetDone: false
+    resetDone: false,
+    isLoggedIn: false
   },
   reducers: {
     resetSubmitMessageRequest(state) {
@@ -81,6 +77,7 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         }
+        state.isLoggedIn = true;
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -96,6 +93,7 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         }
+        state.isLoggedIn = true;
       })
       .addCase(forgotPassword.pending, (state) => {
         state.loading = true;
@@ -123,6 +121,7 @@ const authSlice = createSlice({
           name: "",
           email: "",
         }
+        state.isLoggedIn = false;
         Cookies.remove("token");
         Cookies.remove("refreshToken");
       })
@@ -140,6 +139,7 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         }
+        state.isLoggedIn = true;
       })
       .addCase(getUserInfo.rejected, (state, action) => {
         state.loading = false;

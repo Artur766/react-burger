@@ -13,11 +13,11 @@ import Login from '../../pages/Login/Login';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
-import { ProtectedRouteElement } from '../ProtectedRouteElement/ProtectedRouteElement';
+import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 
 function App() {
@@ -38,14 +38,25 @@ function App() {
     dispatch(getIngredients());
   }, [dispatch]);
 
+  // let location = useLocation();
+
+  // // This piece of state is set when one of the
+  // // gallery links is clicked. The `background` state
+  // // is the location that we were at when one of
+  // // the gallery links was clicked. If it's there,
+  // // use it as the location for the <Switch> so
+  // // we show the gallery in the background, behind
+  // // the modal.
+  // let background = location.state && location.state.background;
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/register' element={<ProtectedRouteElement element={<Register />} anonymous={true} />} />
+        <Route path='/login' element={<ProtectedRouteElement element={<Login />} anonymous={true} />} />
+        <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true} />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
@@ -59,7 +70,7 @@ function App() {
               :
               <>
                 < Main />
-                <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable}>
+                <Modal onClose={handleCloseAllModal} isOpen={modalIngredientVisable} title="Детали ингредиента">
                   <IngredientDetails />
                 </Modal>
               </>}

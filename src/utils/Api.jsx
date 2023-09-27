@@ -9,7 +9,7 @@ function handleResponse(res) {
     });
 }
 
-function request(url, options) {
+export function request(url, options) {
   return fetch(url, options).then(handleResponse)
 }
 

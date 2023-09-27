@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from "./Register.module.css"
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate, Navigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../services/reducers/authSlice';
-import Cookies from 'js-cookie';
 
 function Register() {
 
@@ -26,8 +25,6 @@ function Register() {
       })
       .catch(err => console.log(err))
   }
-
-  if (Cookies.get("token")) return <Navigate to="/" replace />;
 
   return (
     <main className={styles.main}>
@@ -56,7 +53,6 @@ function Register() {
           size={'default'}
           extraClass="ml-1"
           required
-          pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         />
         <PasswordInput
           errorText={errors}

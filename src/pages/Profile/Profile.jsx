@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from "./Profile.module.css"
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../services/reducers/authSlice';
-import { Loader } from '../../components/loader/loader';
 
 
 function Profile() {

@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from "./ForgotPassword.module.css"
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
-import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../../services/reducers/authSlice';
 
@@ -23,8 +22,6 @@ function ForgotPassword() {
       });
   }
 
-  if (Cookies.get("token")) return <Navigate to="/" replace />
-
   return (
     <main className={styles.main}>
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
@@ -40,7 +37,6 @@ function ForgotPassword() {
           size={'default'}
           extraClass="ml-1"
           required
-          pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         />
         {loading ?
           <Loader size="medium" />
