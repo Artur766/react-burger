@@ -1,0 +1,37 @@
+.main {
+  padding-top: 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  column-gap: 60px;
+}
+
+.navigation {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  composes: text text_type_main-medium text_color_inactive from global;
+  text-decoration: none;
+  padding: 17px 0;
+}
+
+.link:hover {
+  color: #F2F2F3;
+}
+
+.text {
+  composes: text text_type_main-default mt-20 text_color_inactive from global;
+}
+
+
+
+.activeLink {
+  color: #F2F2F3;
+}
+
+.linkLogout:hover {
+  color: red;
+}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const loaderSizes = {
   small: 16,
-  medium: 24,
+  medium: 32,
   large: 60
 };
 export const Loader = ({ size, inverse = false }) => {

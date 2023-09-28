@@ -1,0 +1,14 @@
+.error {
+  color: brown;
+  text-align: center;
+  composes: text text_type_digits-medium mt-10 from global;
+  font-size: 18px;
+}
+
+.succes {
+  margin-top: 10px;
+  color: green;
+  text-align: center;
+  composes: text text_type_digits-medium mt-10 from global;
+  font-size: 18px;
+}

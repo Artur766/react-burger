@@ -62,3 +62,7 @@
   margin-right: 13px;
   border: 2px dashed transparent;
 }
+
+svg :hover {
+  opacity: .6;
+}

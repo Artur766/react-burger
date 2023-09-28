@@ -8,6 +8,7 @@ const currentIngredientSlice = createSlice({
   },
   reducers: {
     openIngredientModal(state, action) {
+      state.idParams = null;
       state.modalIngredientVisable = true;
       state.currentIngredient = action.payload;
     },
@@ -15,9 +16,12 @@ const currentIngredientSlice = createSlice({
       state.modalIngredientVisable = false;
       state.currentIngredient = {};
     },
+    visableIngredientDetails(state, action) {
+      state.currentIngredient = action.payload;
+    }
   }
 });
 
 export default currentIngredientSlice.reducer;
 
-export const { openIngredientModal, closeIngredientModal } = currentIngredientSlice.actions;
+export const { openIngredientModal, closeIngredientModal, visableIngredientDetails } = currentIngredientSlice.actions;

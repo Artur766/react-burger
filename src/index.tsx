@@ -6,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from "./services/index";
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +20,8 @@ const store = configureStore({
 
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter basename='/react-burger'>
+      <App />
+    </BrowserRouter>
   </Provider>
 );

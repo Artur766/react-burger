@@ -1,6 +1,5 @@
 import { BASE_URL } from "./constants";
 
-
 function handleResponse(res) {
   if (res.ok) return res.json();
   return res.json()
@@ -10,22 +9,44 @@ function handleResponse(res) {
     });
 }
 
+export function request(url, options) {
+  return fetch(url, options).then(handleResponse)
+}
+
 export function getAllIngredients() {
-  return fetch(`${BASE_URL}/ingredients`, {
+  return request(`${BASE_URL}/ingredients`, {
     headers: {
       'Content-Type': 'application/json'
     }
   })
-    .then(handleResponse)
 }
 
 export function createOrder(allId) {
-  return fetch(`${BASE_URL}/orders`, {
+  return request(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ "ingredients": allId })
   })
-    .then(handleResponse)
+}
+
+export function forgotPasswordApi(emailValue) {
+  return request(`${BASE_URL}/password-reset`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "email": emailValue })
+  })
+}
+
+export function resetPassword(password, token) {
+  return request(`${BASE_URL}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "password": password, "token": token })
+  })
 }

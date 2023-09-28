@@ -1,0 +1,39 @@
+.main {
+  display: flex;
+  justify-content: center;
+  padding-top: 180px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.title {
+  composes: text text_type_main-medium from global;
+  text-align: center;
+}
+
+.text {
+  composes: text text_type_main-default from global;
+  text-align: center;
+  color: #8585AD;
+  margin-top: 56px;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+}
+
+.link:hover {
+  opacity: .6;
+}
+
+.btn {
+  width: 253px;
+  margin: 0 auto;
+}

@@ -1,0 +1,19 @@
+.input {
+  margin-bottom: 24px;
+}
+
+.btn {
+  margin-top: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+}
+
+.containerButton {
+  display: flex;
+  column-gap: 10px;
+}
