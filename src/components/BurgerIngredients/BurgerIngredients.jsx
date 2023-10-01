@@ -13,6 +13,7 @@ function BurgerIngredients({ title }) {
   const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
   const h2Refs = React.useRef([]);
   const [active, setActive] = React.useState("buns");
+
   const setH2Ref = (index) => (element) => {
     h2Refs.current[index] = element;
   };
