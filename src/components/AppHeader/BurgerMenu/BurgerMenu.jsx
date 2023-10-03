@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./BurgerMenu.module.css";
 import { CloseIcon, ProfileIcon, BurgerIcon, ListIcon, ArrowDownIcon, ArrowUpIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function BurgerMenu({ closeMenu }) {
   const [isProfile, setIsProfile] = React.useState(false);
@@ -17,20 +18,20 @@ function BurgerMenu({ closeMenu }) {
         </div>
         <nav className={styles.navigation}>
           <div className={styles.profileContainer} onClick={handleMenuProfile}>
-            <a href="#" className={styles.navigationItem}> <ProfileIcon type="primary" />Личный кабинет</a>
+            <Link to="/profile" className={styles.navigationItem} onClick={closeMenu}> <ProfileIcon type="primary" />Личный кабинет</Link>
             {isProfile ? <ArrowUpIcon type="primary" /> : <ArrowDownIcon type="primary" />}
           </div>
           {isProfile &&
             <>
-              <a href="#" className={styles.linkProfile} onClick={closeMenu}>Профиль</a>
-              <a href="#" className={styles.linkProfile} onClick={closeMenu}>История заказов</a>
-              <a href="#" className={styles.linkProfile} onClick={closeMenu}>Выход</a>
+              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>Профиль</Link>
+              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>История заказов</Link>
+              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>Выход</Link>
             </>
           }
-          <a href="#" className={`${styles.navigationItem}`} onClick={closeMenu}>
+          <Link href="#" className={`${styles.navigationItem}`} onClick={closeMenu}>
             <BurgerIcon type="secondary" />Конструктор бургеров
-          </a>
-          <a href="#" className={styles.navigationItem} onClick={closeMenu}> <ListIcon type="secondary" />Лента заказов</a>
+          </Link>
+          <Link href="#" className={styles.navigationItem} onClick={closeMenu}> <ListIcon type="secondary" />Лента заказов</Link>
         </nav>
       </div>
     </div>
