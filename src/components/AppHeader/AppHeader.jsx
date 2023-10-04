@@ -5,7 +5,6 @@ import logo from "../../images/logo.svg"
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { NavLink, useLocation } from 'react-router-dom';
 
-
 function AppHeader() {
 
   const [visable, setVisableMenu] = React.useState(false);
@@ -24,7 +23,7 @@ function AppHeader() {
       <div className={styles.content}>
         <div className={styles.contentMobile}>
           <img src={logo} alt="лого" />
-          <MenuIcon onClick={handleVisableMenu} />
+           <MenuIcon onClick={handleVisableMenu} />
         </div>
         {visable && <BurgerMenu closeMenu={handleVisableMenu} />}
         <div className={styles.container}>

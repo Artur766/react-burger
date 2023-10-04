@@ -2,13 +2,22 @@ import React from 'react';
 import styles from "./BurgerMenu.module.css";
 import { CloseIcon, ProfileIcon, BurgerIcon, ListIcon, ArrowDownIcon, ArrowUpIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import {  NavLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function BurgerMenu({ closeMenu }) {
   const [isProfile, setIsProfile] = React.useState(false);
+  const location = useLocation(); // получаем текущий путь
+
   function handleMenuProfile() {
     setIsProfile(!isProfile)
   }
+  const {isLoggedIn} = useSelector(store=> store.auth);
+
+  function handleIsActiveLink(isActive) {
+    return isActive ? `${styles.navigationItem} ${styles.activeNavigation}` : styles.navigationItem;
+  }
+
   return (
     <div className={styles.burger}>
       <div className={styles.list}>
@@ -17,21 +26,32 @@ function BurgerMenu({ closeMenu }) {
           <CloseIcon type="primary" onClick={closeMenu} />
         </div>
         <nav className={styles.navigation}>
-          <div className={styles.profileContainer} onClick={handleMenuProfile}>
-            <Link to="/profile" className={styles.navigationItem} onClick={closeMenu}> <ProfileIcon type="primary" />Личный кабинет</Link>
-            {isProfile ? <ArrowUpIcon type="primary" /> : <ArrowDownIcon type="primary" />}
+          <div className={styles.profileContainer} >
+            <NavLink 
+              to="/profile" 
+              className={({ isActive }) => handleIsActiveLink(isActive)}
+              onClick={closeMenu}
+            > <ProfileIcon type={location.pathname === "/profile" ? "primiry" : "secondary"} />
+            Личный кабинет
+            </NavLink>
+           {isLoggedIn && (isProfile ? <ArrowUpIcon type="primary" onClick={handleMenuProfile} /> : <ArrowDownIcon onClick={handleMenuProfile} type="primary" />)}
           </div>
           {isProfile &&
             <>
-              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>Профиль</Link>
-              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>История заказов</Link>
-              <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>Выход</Link>
+              <NavLink to="/profile" className={({ isActive }) => handleIsActiveLink(isActive)} onClick={closeMenu}>Профиль</NavLink>
+              <NavLink to="/h" className={({ isActive }) => handleIsActiveLink(isActive)} onClick={closeMenu}>История заказов</NavLink>
+              <NavLink to="/" className={({ isActive }) => handleIsActiveLink(isActive)} onClick={closeMenu}>Выход</NavLink>
             </>
           }
-          <Link href="#" className={`${styles.navigationItem}`} onClick={closeMenu}>
-            <BurgerIcon type="secondary" />Конструктор бургеров
-          </Link>
-          <Link href="#" className={styles.navigationItem} onClick={closeMenu}> <ListIcon type="secondary" />Лента заказов</Link>
+          <NavLink className={({ isActive }) => handleIsActiveLink(isActive)} to="/" onClick={closeMenu}>
+            <BurgerIcon type={location.pathname === "/" ? "primiry" : "secondary"} />Конструктор бургеров
+          </NavLink>
+          <NavLink 
+            to="/orders" 
+            className={({ isActive }) => handleIsActiveLink(isActive)} 
+            onClick={closeMenu}> <ListIcon type={location.pathname === "/orders" ? "primiry" : "secondary"} />
+            Лента заказов
+          </NavLink>
         </nav>
       </div>
     </div>
