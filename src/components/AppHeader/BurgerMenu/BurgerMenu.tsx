@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./BurgerMenu.module.css";
 import { CloseIcon, ProfileIcon, BurgerIcon, ListIcon, ArrowDownIcon, ArrowUpIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function BurgerMenu({ closeMenu }) {
+interface IBurgerMenu {
+  closeMenu: () => void
+}
+
+const BurgerMenu: FC<IBurgerMenu> = ({ closeMenu }) => {
   const [isProfile, setIsProfile] = React.useState(false);
   function handleMenuProfile() {
     setIsProfile(!isProfile)
@@ -28,10 +31,10 @@ function BurgerMenu({ closeMenu }) {
               <Link to="/profile" className={styles.linkProfile} onClick={closeMenu}>Выход</Link>
             </>
           }
-          <Link href="#" className={`${styles.navigationItem}`} onClick={closeMenu}>
+          <Link to="#" className={`${styles.navigationItem}`} onClick={closeMenu}>
             <BurgerIcon type="secondary" />Конструктор бургеров
           </Link>
-          <Link href="#" className={styles.navigationItem} onClick={closeMenu}> <ListIcon type="secondary" />Лента заказов</Link>
+          <Link to="#" className={styles.navigationItem} onClick={closeMenu}> <ListIcon type="secondary" />Лента заказов</Link>
         </nav>
       </div>
     </div>
@@ -39,7 +42,3 @@ function BurgerMenu({ closeMenu }) {
 }
 
 export default BurgerMenu;
-
-BurgerMenu.propTypes = {
-  closeMenu: PropTypes.func.isRequired,
-}
