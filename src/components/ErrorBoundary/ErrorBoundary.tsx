@@ -1,8 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import styles from "./ErrorBoundary.module.css"
 
-function ErrorBoundary({ error }) {
+interface IErrorBoundary {
+  error: string
+};
+
+const ErrorBoundary: FC<IErrorBoundary> = ({ error }) => {
 
   return (
     <section>
@@ -15,7 +18,3 @@ function ErrorBoundary({ error }) {
 }
 
 export default ErrorBoundary;
-
-ErrorBoundary.propTypes = {
-  error: PropTypes.string.isRequired
-}

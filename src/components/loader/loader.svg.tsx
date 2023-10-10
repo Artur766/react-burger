@@ -1,6 +1,11 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-export const LoaderSvg = ({ color = '#3C39EC', size }) => {
+interface ILoaderSvg {
+  color: string,
+  size: any
+}
+
+export const LoaderSvg: FC<ILoaderSvg> = ({ color = '#3C39EC', size }) => {
   return (
     <svg
       width={size}
@@ -27,8 +32,3 @@ export const LoaderSvg = ({ color = '#3C39EC', size }) => {
     </svg>
   );
 };
-
-LoaderSvg.propTypes = {
-  color: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
-}

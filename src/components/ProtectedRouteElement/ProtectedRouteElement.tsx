@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { ReactElement, FC } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import PropTypes from 'prop-types';
 import { getUserInfo } from '../../services/reducers/authSlice';
+import { RootState } from '../../services';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-function ProtectedRouteElement({ element, anonymous = false }) {
-  const isLoggedIn = useSelector(store => store.auth.isLoggedIn);
+interface IProtectedRouteElement {
+  element: ReactElement,
+  anonymous?: boolean
+}
 
+const ProtectedRouteElement: FC<IProtectedRouteElement> = ({ element, anonymous = false }) => {
+
+  const isLoggedIn = useSelector((store: RootState) => store.auth.isLoggedIn);
   const location = useLocation();
-  const from = location.state?.from || '/';
-  const dispatch = useDispatch();
+  const from: string = location.state?.from || '/';
+  const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
 
 
   React.useEffect(() => {
@@ -31,11 +38,8 @@ function ProtectedRouteElement({ element, anonymous = false }) {
 
   // Если все ок, то рендерим внутреннее содержимое
   return element;
+
+
 }
 
 export default ProtectedRouteElement;
-
-ProtectedRouteElement.propTypes = {
-  element: PropTypes.object.isRequired,
-  anonymous: PropTypes.bool,
-}

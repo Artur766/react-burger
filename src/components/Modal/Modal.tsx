@@ -13,22 +13,21 @@ interface IModal {
   onClose: () => void,
 }
 
-
 const Modal: FC<IModal> = ({ title, children, onClose, isOpen }) => {
 
   React.useEffect(() => {
 
-    const handleEscClose = (ev: KeyboardEvent<Document>) => {
-      if (ev.key === "Escape") {
-        onClose();
-      }
+    function handleEscClose(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
     }
 
     if (isOpen) {
+      // @ts-ignore
       document.addEventListener("keydown", handleEscClose);
     }
 
     return () => {
+      // @ts-ignore
       document.removeEventListener("keydown", handleEscClose);
     }
   }, [isOpen, onClose])

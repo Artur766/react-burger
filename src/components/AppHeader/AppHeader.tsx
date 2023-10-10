@@ -4,6 +4,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon, MenuIcon } from '@ya.praktikum
 import logo from "../../images/logo.svg"
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { NavLink, useLocation } from 'react-router-dom';
+import { TIcon } from '../../types';
 
 
 const AppHeader: FC = () => {
@@ -19,8 +20,8 @@ const AppHeader: FC = () => {
     return isActive ? `${styles.navigationItem} ${styles.activeNavigation}` : styles.navigationItem;
   }
 
-  function getTypeIcon<T extends string>(puth: T, puth2?: T): TIconTypes {
-    return location.pathname === puth || location.pathname === puth2 ? "primiry" : "secondary";
+  function getTypeIcon<T extends string>(puth: T, puth2?: T): TIcon {
+    return location.pathname === puth || location.pathname === puth2 ? "primary" : "secondary";
   }
 
   return (

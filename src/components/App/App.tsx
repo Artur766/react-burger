@@ -21,7 +21,7 @@ import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElemen
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import { RootState } from '../../services';
 import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux'; // Import AnyAction from redux package
+import { AnyAction } from 'redux';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);

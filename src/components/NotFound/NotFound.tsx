@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./NotFound.module.css";
 
-function NotFound() {
+const NotFound: FC = () => {
   const history = useNavigate();
 
   function handleGoBack() {
