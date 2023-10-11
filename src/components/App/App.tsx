@@ -20,13 +20,12 @@ import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import { RootState } from '../../services';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
   const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
-  const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -39,6 +38,7 @@ const App: FC = () => {
   }
 
   React.useEffect(() => {
+    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 

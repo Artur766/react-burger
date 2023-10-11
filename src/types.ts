@@ -10,7 +10,8 @@ export interface IIngredient {
   image: string;
   image_mobile: string;
   image_large: string;
-  productId: string
+  productId: string,
+  count: number
 }
 
 export type TIcon = "primary" | "secondary";
@@ -20,3 +21,5 @@ export interface IUser {
   email: string,
   password: string
 }
+
+export type TCurrentTab = "buns" | "sauce" | 'main';

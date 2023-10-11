@@ -15,7 +15,7 @@ const loaderSizes: ILoaderSizes = {
 };
 
 interface ILoader {
-  inverse: boolean
+  inverse?: boolean
   size: "medium" | "large" | "small"
 }
 

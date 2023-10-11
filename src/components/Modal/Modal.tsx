@@ -1,8 +1,9 @@
-import React, { FC, ReactNode, KeyboardEvent } from 'react';
+import React, { FC, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from "./Modal.module.css"
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { keyboardKey } from '@testing-library/user-event';
 
 const modalRoot: Element | DocumentFragment = document.getElementById("react-modals")!;
 
@@ -15,21 +16,20 @@ interface IModal {
 
 const Modal: FC<IModal> = ({ title, children, onClose, isOpen }) => {
 
+
+
   React.useEffect(() => {
 
-    function handleEscClose(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+    function handleEscClose(ev: keyboardKey) {
+      if (ev.key === "Escape") {
+        onClose();
+      }
     }
 
-    if (isOpen) {
-      // @ts-ignore
-      document.addEventListener("keydown", handleEscClose);
-    }
+    if (isOpen) document.addEventListener("keydown", handleEscClose);
 
-    return () => {
-      // @ts-ignore
-      document.removeEventListener("keydown", handleEscClose);
-    }
+    return () => document.removeEventListener("keydown", handleEscClose);
+
   }, [isOpen, onClose])
 
   return ReactDOM.createPortal(

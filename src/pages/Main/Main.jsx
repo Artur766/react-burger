@@ -10,7 +10,7 @@ function Main() {
   return (
     <main className={styles.main}>
       <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients title="Соберите бургер" />
+        <BurgerIngredients />
         <BurgerConstructor />
       </DndProvider>
     </main>

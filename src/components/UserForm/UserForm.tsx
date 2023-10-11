@@ -1,4 +1,4 @@
-import React, { FormEvent, FC } from 'react'
+import React, { FormEvent, FC, } from 'react'
 import { PasswordInput, Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import styles from "./UserForm.module.css";
@@ -57,7 +57,7 @@ const UserForm: FC = () => {
         minLength={3}
         maxLength={20}
         isIcon={!isEditing}
-        // @ts-ignore
+        //@ts-ignore
         type="text"
         error={errors["name"] ? true : false}
         errorText={errors["name"]}
@@ -68,9 +68,8 @@ const UserForm: FC = () => {
         value={values["email"] || ""}
         name={'email'}
         extraClass={styles.input}
-        pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
         isIcon={!isEditing}
-        // @ts-ignore
+        //@ts-ignore
         error={errors["email"] ? true : false}
         errorText={errors["email"]}
       />
@@ -82,7 +81,7 @@ const UserForm: FC = () => {
         icon="EditIcon"
         minLength={8}
         maxLength={28}
-        // @ts-ignore
+        //@ts-ignore
         errorText={errors["password"]}
         error={errors["password"] ? true : false}
       />
