@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { openIngredientModal, visableIngredientDetails } from '../../services/reducers/currentIngredientSlice';
 import { RootState } from '../../services';
+import { IIngredient } from '../../types';
 
 const IngredientDetails: FC = () => {
 
   const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
+
   const currentIngredient = useSelector((store: RootState) => store.currentIngredient.currentIngredient);
 
   const { id } = useParams();
@@ -15,8 +17,7 @@ const IngredientDetails: FC = () => {
   const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
 
   React.useEffect(() => {
-    //@ts-ignore
-    const ingredient = ingredients.find(item => item._id === id);
+    const ingredient = ingredients.find((item: IIngredient) => item._id === id);
     if (!modalIngredientVisable && !localStorage.getItem("ingredientModalOpen")) {
       dispatch(visableIngredientDetails(ingredient));
     } else {
@@ -27,30 +28,24 @@ const IngredientDetails: FC = () => {
   return (
     <div className={`${!modalIngredientVisable && styles.container}`}>
       {!modalIngredientVisable && <h1 className={styles.title}>Детали ингредиента</h1>}
-      {/*@ts-ignore */}
       <img className={styles.image} src={currentIngredient.image_large} alt="ингредиент" />
-      {/*@ts-ignore */}
       <p className={styles.titleIngredient}>{currentIngredient?.name}</p>
       <div className={styles.containerSpecifications}>
         <div>
           <p className={styles.text}>Калории,ккал</p>
-          {/*@ts-ignore */}
-          <p className={styles.meaning}>{currentIngredient?.calories}</p>
+          <p className={styles.meaning}>{currentIngredient.calories}</p>
         </div>
         <div>
           <p className={styles.text}>Белки, г</p>
-          {/*@ts-ignore */}
-          <p className={styles.meaning}>{currentIngredient?.proteins}</p>
+          <p className={styles.meaning}>{currentIngredient.proteins}</p>
         </div>
         <div>
           <p className={styles.text}>Жиры, г</p>
-          {/*@ts-ignore */}
-          <p className={styles.meaning}>{currentIngredient?.fat}</p>
+          <p className={styles.meaning}>{currentIngredient.fat}</p>
         </div>
         <div>
           <p className={styles.text}>Углеводы, г</p>
-          {/*@ts-ignore */}
-          <p className={styles.meaning}>{currentIngredient?.carbohydrates}</p>
+          <p className={styles.meaning}>{currentIngredient.carbohydrates}</p>
         </div>
       </div>
     </div>
