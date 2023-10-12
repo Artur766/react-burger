@@ -5,7 +5,7 @@ import { useDrag } from "react-dnd";
 import { useDispatch } from 'react-redux';
 import { openIngredientModal } from '../../../services/reducers/currentIngredientSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IIngredient } from '../../../types';
+import { IIngredient } from '../../../utils/types';
 
 interface IIngredientProps {
   ingradient: IIngredient

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { openIngredientModal, visableIngredientDetails } from '../../services/reducers/currentIngredientSlice';
 import { RootState } from '../../services';
-import { IIngredient } from '../../types';
+import { IIngredient } from '../../utils/types';
 
 const IngredientDetails: FC = () => {
 

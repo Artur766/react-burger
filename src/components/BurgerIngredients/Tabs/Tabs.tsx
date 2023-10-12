@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./Тabs.module.css";
-import { TCurrentTab } from '../../../types';
+import { TCurrentTab } from '../../../utils/types';
 
 interface ICurrentTab {
   currentTab: TCurrentTab

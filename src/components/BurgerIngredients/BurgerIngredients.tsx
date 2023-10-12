@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Loader } from '../loader/loader';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import { RootState } from '../../services';
-import { IIngredient, TCurrentTab } from '../../types';
+import { IIngredient, TCurrentTab } from '../../utils/types';
 
 const BurgerIngredients = () => {
 

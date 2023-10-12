@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./ConstructorIngredient.module.css";
 import { swapIngredient, deleteIngredient } from '../../../services/reducers/ingredientsConstructorSlice';
 import { decrementCount } from '../../../services/reducers/ingredientsSlice'
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { IngredientPropTypes } from '../../../utils/IngredientPropTypes';
+import { IIngredient, TDropCollectedProps } from '../../../utils/types';
 
-function ConstructorIngredient({ ingredient }) {
+interface IConstructorIngredient {
+  ingredient: IIngredient
+}
+
+const ConstructorIngredient: FC<IConstructorIngredient> = ({ ingredient }) => {
 
   const [{ opacity }, dragRef] = useDrag({
     type: "constructorIngredient",
@@ -17,7 +21,7 @@ function ConstructorIngredient({ ingredient }) {
     })
   });
 
-  const [{ isOver }, dropRef] = useDrop({
+  const [{ isOver }, dropRef] = useDrop<IIngredient, unknown, TDropCollectedProps>({
     accept: "constructorIngredient",
     drop(currentIngredient) {
       if (currentIngredient._id === ingredient._id) return
@@ -30,7 +34,7 @@ function ConstructorIngredient({ ingredient }) {
 
   const dispatch = useDispatch();
 
-  function handleClose(_id, newId) {
+  function handleClose<T extends string>(_id: T, newId: T | undefined): void {
     dispatch(deleteIngredient(newId));
     dispatch(decrementCount(_id));
   }
@@ -40,7 +44,7 @@ function ConstructorIngredient({ ingredient }) {
       <div key={ingredient.id} className={styles.containerConstructorElement} ref={dragRef}>
         <DragIcon type="primary" />
         <ConstructorElement
-          extraClass={isOver && styles.constructorElementBorder}
+          extraClass={isOver ? styles.constructorElementBorder : ""}
           text={ingredient.name}
           price={ingredient.price}
           thumbnail={ingredient.image_large}
@@ -52,7 +56,3 @@ function ConstructorIngredient({ ingredient }) {
 }
 
 export default ConstructorIngredient;
-
-ConstructorIngredient.propTypes = {
-  ingredient: IngredientPropTypes.isRequired
-}

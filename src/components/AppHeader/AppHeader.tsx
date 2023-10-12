@@ -4,7 +4,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon, MenuIcon } from '@ya.praktikum
 import logo from "../../images/logo.svg"
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { NavLink, useLocation } from 'react-router-dom';
-import { TIcon } from '../../types';
+import { TIcon } from '../../utils/types';
 
 
 const AppHeader: FC = () => {

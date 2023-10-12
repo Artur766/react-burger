@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./BurgerConstructor.module.css";
 import Bun from './Bun/Bun';
 import Order from './Order/Order';
@@ -8,13 +8,15 @@ import { addIngredient, resetConstructor } from '../../services/reducers/ingredi
 import { incrementCount, resetCount } from '../../services/reducers/ingredientsSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient';
+import { IIngredient, TDropCollectedProps } from '../../utils/types';
+import { RootState } from '../../services';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector(store => store.ingredientsConstructor);
-  const { modalOrdervisable } = useSelector(store => store.order);
+  const ingredients = useSelector((store: RootState) => store.ingredientsConstructor.ingredients);
+  const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
 
-  const [{ isOver }, dropRef] = useDrop({
+  const [{ isOver }, dropRef] = useDrop<IIngredient, unknown, TDropCollectedProps>({
     accept: "ingredient",
     drop(item) {
       dispatch(addIngredient({ ...item, id: uuidv4() }));
@@ -46,7 +48,7 @@ function BurgerConstructor() {
           {
             ingredients.length
               ?
-              ingredients.map(item => {
+              ingredients.map((item: IIngredient) => {
                 return (item.type !== "bun" &&
                   <ConstructorIngredient
                     key={item.id}
@@ -68,6 +70,5 @@ function BurgerConstructor() {
     </section>
   )
 }
-
 
 export default BurgerConstructor;

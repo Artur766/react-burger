@@ -11,7 +11,9 @@ export interface IIngredient {
   image_mobile: string;
   image_large: string;
   productId: string,
-  count: number
+  count: number,
+  __v?: number,
+  id?: string
 }
 
 export type TIcon = "primary" | "secondary";
@@ -23,3 +25,8 @@ export interface IUser {
 }
 
 export type TCurrentTab = "buns" | "sauce" | 'main';
+
+
+export type TDropCollectedProps = {
+  isOver: boolean
+}

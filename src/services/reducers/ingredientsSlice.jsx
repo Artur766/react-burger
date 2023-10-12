@@ -42,7 +42,6 @@ const ingredientsSlice = createSlice({
       .addCase(getIngredients.pending, (state) => {
         state.ingredientsRequest = true;
         state.error = "";
-        console.log(state.ingredients);
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredientsRequest = false;
