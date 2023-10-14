@@ -20,6 +20,7 @@ import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import { RootState } from '../../services';
+import { refreshToken } from '../../utils/auth';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);

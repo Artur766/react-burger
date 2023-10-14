@@ -19,9 +19,9 @@ export interface IIngredient {
 export type TIcon = "primary" | "secondary";
 
 export interface IUser {
-  name: string,
+  name?: string,
   email: string,
-  password: string
+  password?: string
 }
 
 export type TCurrentTab = "buns" | "sauce" | 'main';
@@ -29,4 +29,14 @@ export type TCurrentTab = "buns" | "sauce" | 'main';
 
 export type TDropCollectedProps = {
   isOver: boolean
+}
+
+export interface ITokenResponse {
+  success: boolean,
+  accessToken: string,
+  refreshToken: string
+}
+
+export interface IAuthResult {
+  payload: unknown;
 }

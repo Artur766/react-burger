@@ -5,8 +5,8 @@ import { forgotPasswordApi } from "../../utils/Api";
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ email, password, userName }) => {
-    const response = await registerApi(email, password, userName);
+  async ({ email, password, name }) => {
+    const response = await registerApi({ email, password, name });
     return response;
   }
 )
@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
-    const response = await loginApi(email, password);
+    const response = await loginApi({ email, password });
     return response;
   }
 )
@@ -40,7 +40,7 @@ export const getUserInfo = createAsyncThunk("auth/getUser", getUserInfoApi);
 export const updateUserInfo = createAsyncThunk(
   "auth/updateUser",
   async ({ name, email, password }) => {
-    const response = await updateUserInfoApi(name, email, password);
+    const response = await updateUserInfoApi({ name, email, password });
     return response;
   }
 )

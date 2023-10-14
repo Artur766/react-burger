@@ -1,31 +1,34 @@
 import { BASE_URL } from "./constants";
 import Cookies from 'js-cookie';
 import { request } from "./Api";
+import { ITokenResponse, IUser } from "./types";
 
-function saveToken(token, tokenResponse) {
+function saveToken<T extends string>(token: T, tokenResponse: T) {
   Cookies.set('token', token, { expires: 1 });
   Cookies.set('refreshToken', tokenResponse, { expires: 7 });
 }
+function handleToken(res: unknown): ITokenResponse | undefined {
 
-function handleToken(res) {
-  if (res.accessToken && res.refreshToken) {
-    saveToken(res.accessToken.split('Bearer ')[1], res.refreshToken);
-    return res;
+  const tokenResponse = res as ITokenResponse;
+
+  if (tokenResponse.accessToken && tokenResponse.refreshToken) {
+    saveToken(tokenResponse.accessToken.split('Bearer ')[1], tokenResponse.refreshToken);
+    return tokenResponse;
   }
 }
 
-export function registerApi(email, password, userName) {
+export function registerApi({ email, password, name }: IUser) {
   return request(`${BASE_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-type": 'application/json'
     },
-    body: JSON.stringify({ "email": email, "password": password, "name": userName })
+    body: JSON.stringify({ "email": email, "password": password, "name": name })
   })
     .then(handleToken)
 }
 
-export function loginApi(email, password) {
+export function loginApi({ email, password }: IUser) {
   return request(`${BASE_URL}/auth/login`, {
     method: "POST",
     headers: {
@@ -47,10 +50,10 @@ export function refreshToken() {
     },
     body: JSON.stringify({ "token": Cookies.get("refreshToken") })
   })
-    .then(res => res.accessToken);
+    .then(res => (res as ITokenResponse).accessToken);
 }
 
-export function logoutApi(refreshToken) {
+export function logoutApi(refreshToken: string) {
   return request(`${BASE_URL}/auth/logout`, {
     method: "POST",
     headers: {
@@ -72,7 +75,7 @@ export function getUserInfoApi() {
     });
 }
 
-export function updateUserInfoApi(name, email, password) {
+export function updateUserInfoApi({ name, email, password }: IUser) {
   return refreshToken()
     .then(token => {
       return request(`${BASE_URL}/auth/user`, {

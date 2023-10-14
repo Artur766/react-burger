@@ -1,15 +1,15 @@
 import { BASE_URL } from "./constants";
 
-function handleResponse(res) {
+function handleResponse<T>(res: Response): Promise<T> {
   if (res.ok) return res.json();
   return res.json()
-    .then(error => {
+    .then((error: string) => {
       const errorMessage = error || "Произошла ошибка...";
       return Promise.reject(errorMessage);
     });
 }
 
-export function request(url, options) {
+export function request(url: string, options: RequestInit) {
   return fetch(url, options).then(handleResponse)
 }
 
@@ -21,7 +21,7 @@ export function getAllIngredients() {
   })
 }
 
-export function createOrder(allId) {
+export function createOrder(allId: string) {
   return request(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {
@@ -31,7 +31,7 @@ export function createOrder(allId) {
   })
 }
 
-export function forgotPasswordApi(emailValue) {
+export function forgotPasswordApi(emailValue: string) {
   return request(`${BASE_URL}/password-reset`, {
     method: "POST",
     headers: {
@@ -41,7 +41,7 @@ export function forgotPasswordApi(emailValue) {
   })
 }
 
-export function resetPassword(password, token) {
+export function resetPassword<T extends string>(password: T, token: T) {
   return request(`${BASE_URL}/password-reset/reset`, {
     method: "POST",
     headers: {

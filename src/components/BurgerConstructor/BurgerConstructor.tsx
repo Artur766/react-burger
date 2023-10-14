@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import Bun from './Bun/Bun';
 import Order from './Order/Order';
