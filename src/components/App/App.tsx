@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
-import styles from "./App.module.css"
+import styles from "./App.module.css";
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
@@ -19,10 +19,13 @@ import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
+import { RootState } from '../../services';
+import { refreshToken } from '../../utils/auth';
 
-function App() {
-  const { modalIngredientVisable } = useSelector(store => store.currentIngredient);
-  const { modalOrdervisable } = useSelector(store => store.order);
+const App: FC = () => {
+  const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
+  const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +39,7 @@ function App() {
   }
 
   React.useEffect(() => {
+    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 

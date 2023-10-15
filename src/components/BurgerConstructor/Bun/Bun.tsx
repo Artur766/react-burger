@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./Bun.module.css";
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addBun, deleteBun } from '../../../services/reducers/ingredientsConstructorSlice';
 import { decrementCount, incrementCount } from '../../../services/reducers/ingredientsSlice';
+import { RootState } from '../../../services';
+import { IIngredient, TDropCollectedProps } from '../../../utils/types';
 
-function Bun({ type, positionName, isLocked }) {
+interface IBun {
+  type: "top" | "bottom",
+  positionName: string,
+  isLocked: boolean
+}
+
+const Bun: FC<IBun> = ({ type, positionName, isLocked }) => {
 
   const dispatch = useDispatch();
-  const { bun } = useSelector(store => store.ingredientsConstructor);
+  const bun = useSelector((store: RootState) => store.ingredientsConstructor.bun);
 
-  const [{ isOver }, dropRefBun] = useDrop({
+  const [{ isOver }, dropRefBun] = useDrop<IIngredient, unknown, TDropCollectedProps>({
     accept: "bun",
     drop(item) {
       dispatch(addBun(item));
@@ -23,7 +30,7 @@ function Bun({ type, positionName, isLocked }) {
         }
       }
     },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: monitor.isOver()
     })
   });
@@ -39,7 +46,7 @@ function Bun({ type, positionName, isLocked }) {
       {bun.name ?
         <div ref={dropRefBun}  >
           <ConstructorElement
-            extraClass={isOver && styles.wrapperConstructorElement}
+            extraClass={isOver ? styles.wrapperConstructorElement : ""}
             handleClose={handleClose}
             type={type}
             isLocked={isLocked}
@@ -62,12 +69,3 @@ function Bun({ type, positionName, isLocked }) {
 }
 
 export default Bun;
-
-Bun.propTypes = {
-  type: PropTypes.string.isRequired,
-  positionName: PropTypes.string.isRequired,
-  isLocked: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool
-  ]).isRequired,
-}

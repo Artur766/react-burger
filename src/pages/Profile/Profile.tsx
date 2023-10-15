@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./Profile.module.css"
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../services/reducers/authSlice';
 
 
-function Profile() {
+const Profile: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleIsActiveLink(isActive) {
+  function handleIsActiveLink(isActive: boolean) {
     return isActive ? `${styles.link} ${styles.activeLink}` : styles.link;
   }
 
   function handleLogout() {
+    //@ts-ignore
     dispatch(logout())
       .then(() => navigate("/login", { replace: true }));
   }

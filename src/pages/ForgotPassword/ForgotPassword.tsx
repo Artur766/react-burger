@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent, FC } from 'react';
 import styles from "./ForgotPassword.module.css"
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useNavigate } from "react-router-dom"
@@ -6,18 +6,20 @@ import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword } from '../../services/reducers/authSlice';
+import { RootState } from '../../services';
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
-  const { loading, error } = useSelector(store => store.auth)
+  const { loading, error } = useSelector((store: RootState) => store.auth)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    //@ts-ignore
     dispatch(forgotPassword(values.email))
-      .then((res) => {
+      .then(() => {
         navigate("/reset-password");
       });
   }

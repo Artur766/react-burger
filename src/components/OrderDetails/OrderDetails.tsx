@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./OrderDetails.module.css";
 import checkMark from "../../images/done.svg";
 import { useSelector } from "react-redux";
+import { RootState } from '../../services';
 
-function OrderDetails() {
-  const { orderNumber } = useSelector(store => store.order);
+const OrderDetails: FC = () => {
+  const orderNumber = useSelector((store: RootState) => store.order.orderNumber);
   return (
     <>
       <h2 className={styles.totalPrice}>{orderNumber}</h2>

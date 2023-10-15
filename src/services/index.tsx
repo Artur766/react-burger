@@ -12,3 +12,5 @@ export const rootReducer = combineReducers({
   order: orderSlice,
   auth: authSlice,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;

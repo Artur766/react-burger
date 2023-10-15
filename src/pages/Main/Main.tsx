@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from "./Main.module.css";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 
-function Main() {
-
+const Main: FC = () => {
   return (
     <main className={styles.main}>
       <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients title="Соберите бургер" />
+        <BurgerIngredients />
         <BurgerConstructor />
       </DndProvider>
     </main>

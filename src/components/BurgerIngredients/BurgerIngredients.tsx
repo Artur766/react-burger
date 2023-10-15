@@ -2,19 +2,20 @@ import React, { Fragment } from 'react';
 import styles from "./BurgerIngredients.module.css";
 import Tabs from './Tabs/Tabs';
 import { arrTitleIngredients } from '../../utils/constants';
-import PropTypes from 'prop-types';
 import Ingredient from './Ingredient/Ingredient';
 import { useSelector } from 'react-redux';
 import { Loader } from '../loader/loader';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import { RootState } from '../../services';
+import { IIngredient, TCurrentTab } from '../../utils/types';
 
-function BurgerIngredients({ title }) {
+const BurgerIngredients = () => {
 
-  const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
-  const h2Refs = React.useRef([]);
-  const [active, setActive] = React.useState("buns");
+  const { ingredients, ingredientsRequest, error } = useSelector((store: RootState) => store.ingredients);
+  const h2Refs = React.useRef<HTMLHeadingElement[]>([]);
+  const [active, setActive] = React.useState<TCurrentTab>("buns");
 
-  const setH2Ref = (index) => (element) => {
+  const setH2Ref = (index: number) => (element: HTMLHeadingElement) => {
     h2Refs.current[index] = element;
   };
 
@@ -34,7 +35,7 @@ function BurgerIngredients({ title }) {
 
   return (
     <section className={styles.ingredients}>
-      <h1 className={styles.title}>{title}</h1>
+      <h1 className={styles.title}>Соберите бургер</h1>
       <Tabs currentTab={active} />
       {
         ingredientsRequest
@@ -53,7 +54,7 @@ function BurgerIngredients({ title }) {
                       <h2 className={styles.titleIngredients} >{typeIngred.title}</h2>
                       <div className={styles.cardsList} ref={setH2Ref(i)}>
                         {
-                          ingredients.map(item => {
+                          ingredients.map((item: IIngredient) => {
                             return (
                               item.type === typeIngred.type &&
                               <Ingredient
@@ -73,9 +74,5 @@ function BurgerIngredients({ title }) {
     </section >
   )
 }
-
-BurgerIngredients.propTypes = {
-  title: PropTypes.string.isRequired,
-};
 
 export default BurgerIngredients;

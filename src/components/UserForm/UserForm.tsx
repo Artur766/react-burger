@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { FormEvent, FC, } from 'react'
 import { PasswordInput, Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import styles from "./UserForm.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { resetSubmitMessageRequest, updateUserInfo } from '../../services/reducers/authSlice';
+import { RootState } from '../../services';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-function UserForm() {
+const UserForm: FC = () => {
   const { values, errors, setErrors, handleChange, reset } = useFormValidation();
-  const { user, error, successUpdateUser } = useSelector(store => store.auth);
+  const { user, error, successUpdateUser } = useSelector((store: RootState) => store.auth);
   const [isEditing, setIsEditing] = React.useState(false);
-  const dispatch = useDispatch();
+
+  const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
 
   React.useEffect(() => {
     if (user) {
@@ -26,7 +30,7 @@ function UserForm() {
     };
   }, [user, values, setIsEditing]);
 
-  function handleCancel() {
+  function handleCancel(): void {
     reset({
       "name": user.name,
       "email": user.email,
@@ -36,39 +40,38 @@ function UserForm() {
     setIsEditing(false);
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
+    // @ts-ignore 
     dispatch(updateUserInfo({ name: values.name, email: values.email, password: values.password }));
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <EmailInput
-        type="text"
         placeholder='Имя'
         onChange={handleChange}
         value={values["name"] || ""}
         name={'name'}
-        icon="EditIcon"
         extraClass={styles.input}
-        error={errors["name"] ? true : false}
-        errorText={errors["name"]}
         minLength={3}
         maxLength={20}
         isIcon={!isEditing}
+        //@ts-ignore
+        type="text"
+        error={errors["name"] ? true : false}
+        errorText={errors["name"]}
       />
       <EmailInput
-        type="email"
         placeholder='Логин'
         onChange={handleChange}
         value={values["email"] || ""}
         name={'email'}
-        icon="EditIcon"
         extraClass={styles.input}
-        pattern='[a-z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
+        isIcon={!isEditing}
+        //@ts-ignore
         error={errors["email"] ? true : false}
         errorText={errors["email"]}
-        isIcon={!isEditing}
       />
       <PasswordInput
         placeholder='Пароль'
@@ -78,8 +81,9 @@ function UserForm() {
         icon="EditIcon"
         minLength={8}
         maxLength={28}
-        error={errors["password"] ? true : false}
+        //@ts-ignore
         errorText={errors["password"]}
+        error={errors["password"] ? true : false}
       />
       {error && <span className='error'>{error}</span>}
       {(successUpdateUser && !isEditing) && <span className='succes'>user data has been successfully updated</span>}

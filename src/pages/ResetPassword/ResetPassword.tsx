@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, FormEvent } from 'react';
 import styles from "./ResetPassword.module.css";
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -6,16 +6,17 @@ import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
 import { resetPassword } from '../../utils/Api';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../services';
 
-function ResetPassword() {
+const ResetPassword: FC = () => {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState("");
   const navigate = useNavigate();
-  const { resetDone } = useSelector(store => store.auth);
+  const { resetDone } = useSelector((store: RootState) => store.auth);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true)
     resetPassword(values["password"], values["cod"])
@@ -36,6 +37,7 @@ function ResetPassword() {
         <h2 className={styles.title}>Восстановление пароля</h2>
         <PasswordInput
           value={values["password"] || ""}
+          //@ts-ignore
           error={errors["password"] ? true : false}
           errorText={errors["password"]}
           name={'password'}

@@ -1,15 +1,25 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
+
+interface FormValues {
+  [key: string]: string;
+}
+
+interface FormErrors {
+  [key: string]: string;
+}
 
 export function useFormValidation(initialValues = {}) {
-  const [values, setValues] = React.useState(initialValues);
-  const [errors, setErrors] = React.useState({});
-  const [isValid, setIsValid] = React.useState(false);
+  const [values, setValues] = React.useState<FormValues>(initialValues);
+  const [errors, setErrors] = React.useState<FormErrors>({});
+  const [isValid, setIsValid] = React.useState<boolean>(false);
 
-  function handleChange(ev) {
+  function handleChange(ev: ChangeEvent<HTMLInputElement>) {
     const { name, value, validationMessage, form } = ev.target;
     setValues((oldValues) => ({ ...oldValues, [name]: value }));
     setErrors((oldErroes) => ({ ...oldErroes, [name]: validationMessage }));
-    setIsValid(form.checkValidity());
+    if (form !== null) {
+      setIsValid(form.checkValidity());
+    }
   }
 
   const reset = React.useCallback((initialValues = {}) => {
@@ -18,7 +28,7 @@ export function useFormValidation(initialValues = {}) {
     setIsValid(false);
   }, [setValues, setErrors, setIsValid]);
 
-  function setValue(name, value) {
+  function setValue<T extends string>(name: T, value: T) {
     setValues((oldValues) => ({ ...oldValues, [name]: value }));
   }
 
