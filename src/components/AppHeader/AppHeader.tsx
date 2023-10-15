@@ -6,7 +6,6 @@ import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { NavLink, useLocation } from 'react-router-dom';
 import { TIcon } from '../../utils/types';
 
-
 const AppHeader: FC = () => {
 
   const [visable, setVisableMenu] = React.useState(false);

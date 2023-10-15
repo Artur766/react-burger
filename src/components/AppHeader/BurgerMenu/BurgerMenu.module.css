@@ -75,6 +75,10 @@
   color: var(--text-primary-color);
 }
 
+.activeNavigation {
+  color: #F2F2F3;
+}
+
 @media screen and (max-width:420px) {
 
   .header {
