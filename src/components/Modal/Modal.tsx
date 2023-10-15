@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import styles from "./Modal.module.css"
@@ -14,9 +14,7 @@ interface IModal {
   onClose: () => void,
 }
 
-const Modal: FC<IModal> = ({ title, children, onClose, isOpen }) => {
-
-
+const Modal: FC<PropsWithChildren<IModal>> = ({ title, children, onClose, isOpen }) => {
 
   React.useEffect(() => {
 

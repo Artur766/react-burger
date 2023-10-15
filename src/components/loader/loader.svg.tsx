@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 interface ILoaderSvg {
   color: string,
-  size: any
+  size: `${number}px` | number,
 }
 
 export const LoaderSvg: FC<ILoaderSvg> = ({ color = '#3C39EC', size }) => {

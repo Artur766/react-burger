@@ -16,7 +16,7 @@ const ResetPassword: FC = () => {
   const navigate = useNavigate();
   const { resetDone } = useSelector((store: RootState) => store.auth);
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true)
     resetPassword(values["password"], values["cod"])

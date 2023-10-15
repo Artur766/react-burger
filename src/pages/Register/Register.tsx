@@ -16,7 +16,7 @@ const Register: FC = () => {
   const { loading, error } = useSelector((store: RootState) => store.auth);
   const navigate = useNavigate();
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     //@ts-ignore
     dispatch(register({ email: values["email"], password: values["password"], name: values["name"] }))

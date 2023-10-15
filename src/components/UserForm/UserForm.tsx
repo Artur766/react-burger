@@ -11,7 +11,7 @@ import { AnyAction } from 'redux';
 const UserForm: FC = () => {
   const { values, errors, setErrors, handleChange, reset } = useFormValidation();
   const { user, error, successUpdateUser } = useSelector((store: RootState) => store.auth);
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const [isEditing, setIsEditing] = React.useState(false);
 
   const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
 

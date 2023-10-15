@@ -15,7 +15,7 @@ const ForgotPassword: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     //@ts-ignore
     dispatch(forgotPassword(values.email))

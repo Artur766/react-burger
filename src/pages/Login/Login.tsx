@@ -15,7 +15,7 @@ const Login: FC = () => {
   const { loading, error } = useSelector((store: RootState) => store.auth);
   const navigate = useNavigate();
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     //@ts-ignore
     dispatch(login({ email: values["email"], password: values["password"] }))
