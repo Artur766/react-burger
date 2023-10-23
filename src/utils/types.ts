@@ -12,7 +12,7 @@ export interface IIngredient {
   image_large: string;
   productId: string,
   count: number,
-  __v?: number,
+  __v: number,
   id?: string
 }
 
