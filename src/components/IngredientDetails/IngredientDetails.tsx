@@ -1,20 +1,19 @@
 import React, { FC } from 'react';
 import styles from "./IngredientDetails.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types/hooks";
 import { useParams } from 'react-router-dom';
 import { openIngredientModal, visableIngredientDetails } from '../../services/reducers/currentIngredientSlice';
-import { RootState } from '../../services';
 import { IIngredient } from '../../utils/types';
 
 const IngredientDetails: FC = () => {
 
-  const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
+  const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
 
-  const currentIngredient = useSelector((store: RootState) => store.currentIngredient.currentIngredient);
+  const currentIngredient = useSelector(store => store.currentIngredient.currentIngredient);
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const ingredients = useSelector((store: RootState) => store.ingredients.ingredients);
+  const ingredients = useSelector(store => store.ingredients.ingredients);
 
   React.useEffect(() => {
     const ingredient = ingredients.find((item: IIngredient) => item._id === id);

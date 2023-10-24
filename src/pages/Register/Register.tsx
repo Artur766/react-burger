@@ -4,21 +4,19 @@ import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burg
 import { Link, useNavigate } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { register } from '../../services/reducers/authSlice';
-import { RootState } from '../../services';
 import { IAuthResult } from '../../utils/types';
 
 const Register: FC = () => {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((store: RootState) => store.auth);
+  const { loading, error } = useSelector(store => store.auth);
   const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    //@ts-ignore
     dispatch(register({ email: values["email"], password: values["password"], name: values["name"] }))
       .then((res: unknown) => {
         if ((res as IAuthResult).payload) {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from "./Profile.module.css"
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/types/hooks';
 import { logout } from '../../services/reducers/authSlice';
 
 
@@ -14,7 +14,6 @@ const Profile: FC = () => {
   }
 
   function handleLogout() {
-    //@ts-ignore
     dispatch(logout())
       .then(() => navigate("/login", { replace: true }));
   }

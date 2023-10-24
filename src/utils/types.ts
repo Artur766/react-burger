@@ -34,7 +34,8 @@ export type TDropCollectedProps = {
 export interface ITokenResponse {
   success: boolean,
   accessToken: string,
-  refreshToken: string
+  refreshToken: string,
+  user: IUser
 }
 
 export interface IAuthResult {

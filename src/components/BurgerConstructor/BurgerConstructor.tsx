@@ -2,19 +2,18 @@ import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import Bun from './Bun/Bun';
 import Order from './Order/Order';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/types/hooks";
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addIngredient, resetConstructor } from '../../services/reducers/ingredientsConstructorSlice';
 import { incrementCount, resetCount } from '../../services/reducers/ingredientsSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ConstructorIngredient from './ConstructorIngredient/ConstructorIngredient';
 import { IIngredient, TDropCollectedProps } from '../../utils/types';
-import { RootState } from '../../services';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const ingredients = useSelector((store: RootState) => store.ingredientsConstructor.ingredients);
-  const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
+  const ingredients = useSelector(store => store.ingredientsConstructor.ingredients);
+  const modalOrdervisable = useSelector(store => store.order.modalOrdervisable);
 
   const [{ isOver }, dropRef] = useDrop<IIngredient, unknown, TDropCollectedProps>({
     accept: "ingredient",

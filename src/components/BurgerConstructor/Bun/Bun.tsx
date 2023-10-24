@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./Bun.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../services/types/hooks";
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addBun, deleteBun } from '../../../services/reducers/ingredientsConstructorSlice';
 import { decrementCount, incrementCount } from '../../../services/reducers/ingredientsSlice';
-import { RootState } from '../../../services';
 import { IIngredient, TDropCollectedProps } from '../../../utils/types';
 
 interface IBun {
@@ -17,7 +16,7 @@ interface IBun {
 const Bun: FC<IBun> = ({ type, positionName, isLocked }) => {
 
   const dispatch = useDispatch();
-  const bun = useSelector((store: RootState) => store.ingredientsConstructor.bun);
+  const bun = useSelector(store => store.ingredientsConstructor.bun);
 
   const [{ isOver }, dropRefBun] = useDrop<IIngredient, unknown, TDropCollectedProps>({
     accept: "bun",

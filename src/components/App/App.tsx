@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/types/hooks";
 import { closeIngredientModal } from '../../services/reducers/currentIngredientSlice';
 import { closeModalOrder } from '../../services/reducers/orderSlice';
 import Main from '../../pages/Main/Main';
@@ -19,11 +19,10 @@ import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
-import { RootState } from '../../services';
 
 const App: FC = () => {
-  const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
-  const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
+  const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
+  const modalOrdervisable = useSelector(store => store.order.modalOrdervisable);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ const App: FC = () => {
   }
 
   React.useEffect(() => {
-    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 

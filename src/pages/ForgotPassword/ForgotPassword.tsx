@@ -4,21 +4,20 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, useNavigate } from "react-router-dom"
 import { useFormValidation } from '../../hooks/useFormValidation';
 import { Loader } from '../../components/loader/loader';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { forgotPassword } from '../../services/reducers/authSlice';
-import { RootState } from '../../services';
 
 const ForgotPassword: FC = () => {
 
   const { values, errors, isValid, handleChange } = useFormValidation();
-  const { loading, error } = useSelector((store: RootState) => store.auth)
+  const { loading, error } = useSelector(store => store.auth)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(forgotPassword(values.email))
+
+    dispatch(forgotPassword({ email: values.email }))
       .then(() => {
         navigate("/reset-password");
       });

@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { configureStore } from '@reduxjs/toolkit';
 import ingredientsSlice from "./reducers/ingredientsSlice";
 import ingredientsConstructorSlice from "./reducers/ingredientsConstructorSlice";
 import currentIngredientSlice from "./reducers/currentIngredientSlice";
@@ -13,4 +14,11 @@ export const rootReducer = combineReducers({
   auth: authSlice,
 });
 
+const store = configureStore({
+  reducer: rootReducer,
+});
+
 export type RootState = ReturnType<typeof rootReducer>;
+
+// Типизация метода dispatch для проверки на валидность отправляемого экшена
+export type AppDispatch = typeof store.dispatch;

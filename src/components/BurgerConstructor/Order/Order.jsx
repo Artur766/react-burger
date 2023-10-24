@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./Order.module.css";
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { createOrderNumber } from '../../../services/reducers/orderSlice';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../../services/types/hooks";
 import { Loader } from '../../loader/loader';
 import { getTotalPrice } from '../../../services/reducers/ingredientsConstructorSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
