@@ -36,8 +36,8 @@ const AppHeader: FC = () => {
             <NavLink to="/" className={({ isActive }) => handleIsActiveLink(isActive)} >
               <BurgerIcon type={getTypeIcon("/")} />Конструктор
             </NavLink>
-            <NavLink to="/ribbon-order" className={({ isActive }) => handleIsActiveLink(isActive)}>
-              <ListIcon type={getTypeIcon("/ribbon-order")} />
+            <NavLink to="/feed" className={({ isActive }) => handleIsActiveLink(isActive)}>
+              <ListIcon type={getTypeIcon("/feed")} />
               Лента заказов
             </NavLink>
           </nav>

@@ -15,10 +15,10 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
-import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
+import Feed from '../../pages/Feed/Feed';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
@@ -45,13 +45,14 @@ const App: FC = () => {
       <AppHeader />
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path='/feed' element={<Feed />} />
         <Route path='/register' element={<ProtectedRouteElement element={<Register />} anonymous={true} />} />
         <Route path='/login' element={<ProtectedRouteElement element={<Login />} anonymous={true} />} />
         <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true} />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
-          <Route path="orders" element={<Orders />} />
+          {/* <Route path="orders" element={<Orders />} /> */}
         </Route>
         <Route path='/ingredient/:id' element={
           background
