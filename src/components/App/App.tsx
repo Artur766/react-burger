@@ -19,6 +19,8 @@ import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import Feed from '../../pages/Feed/Feed';
+import FeedDetails from '../OrderInfo/OrderInfo';
+import OrderInfo from '../OrderInfo/OrderInfo';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
@@ -46,6 +48,7 @@ const App: FC = () => {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/feed' element={<Feed />} />
+        <Route path="/feed/:id" element={<OrderInfo />} />
         <Route path='/register' element={<ProtectedRouteElement element={<Register />} anonymous={true} />} />
         <Route path='/login' element={<ProtectedRouteElement element={<Login />} anonymous={true} />} />
         <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true} />} />

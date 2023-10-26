@@ -33,6 +33,7 @@
 }
 
 .order {
+  cursor: pointer;
   margin-right: 8px;
   background-color: #1C1C21;
   padding: 24px;
@@ -41,6 +42,13 @@
   flex-direction: column;
   row-gap: 24px;
   width: 536px;
+  transition: 0.5s;
+  /* Время эффекта */
+}
+
+.order:hover {
+  transform: scale(1.015);
+  opacity: 0.7;
 }
 
 .containerDate {
