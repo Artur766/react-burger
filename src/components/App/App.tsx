@@ -19,12 +19,14 @@ import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import Feed from '../../pages/Feed/Feed';
-import FeedDetails from '../OrderInfo/OrderInfo';
 import OrderInfo from '../OrderInfo/OrderInfo';
+import { closeOrderFeedModal } from '../../services/reducers/orderFeed';
+import OrderFeed from '../OrderFeed/OrderFeed';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
   const modalOrdervisable = useSelector(store => store.order.modalOrdervisable);
+  const modalOrderFeedVisable = useSelector(store => store.feed.modalVisable);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,10 +34,13 @@ const App: FC = () => {
   const background = location.state && location.state.background;
 
   function handleCloseAllModal() {
-    navigate("/")
+    navigate(-1);
     dispatch(closeIngredientModal());
     dispatch(closeModalOrder());
+    dispatch(closeOrderFeedModal());
     localStorage.removeItem("ingredientModalOpen");
+    localStorage.removeItem("feedOrderModalOpen");
+    localStorage.removeItem("feedOrderProfileModalOpen");
   }
 
   React.useEffect(() => {
@@ -48,16 +53,15 @@ const App: FC = () => {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path="/feed/:id" element={<OrderInfo />} />
         <Route path='/register' element={<ProtectedRouteElement element={<Register />} anonymous={true} />} />
         <Route path='/login' element={<ProtectedRouteElement element={<Login />} anonymous={true} />} />
         <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true} />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
-          {/* <Route path="orders" element={<Orders />} /> */}
+          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='796px' />} />
         </Route>
-        <Route path='/ingredient/:id' element={
+        <Route path='/ingredient/' element={
           background
             ?
             <>
@@ -68,6 +72,18 @@ const App: FC = () => {
             </>
             :
             <IngredientDetails />
+        } />
+        <Route path='/feed/:id' element={
+          background
+            ?
+            <>
+              <Feed />
+              <Modal onClose={handleCloseAllModal} isOpen={modalOrderFeedVisable}  >
+                <OrderInfo />
+              </Modal>
+            </>
+            :
+            <OrderInfo />
         } />
         <Route path='/*' element={<NotFound />} />
       </Routes>

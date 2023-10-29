@@ -1,13 +1,20 @@
 .main {
-
+  padding-top: 122px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+.mainModal {
+  padding-top: 0;
+}
+
+.numberModal {
+  text-align: left !important;
+}
+
 .feedDetails {
-  padding-top: 122px;
   width: 640px;
 }
 
@@ -17,6 +24,7 @@
 }
 
 .title {
+  margin-top: 40px;
   composes: text text_type_main-medium mb-3 from global;
 }
 
@@ -70,6 +78,7 @@
 
 .wrapper {
   margin-top: 40px;
+  padding-bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;

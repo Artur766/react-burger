@@ -1,8 +1,12 @@
 import React, { FC } from 'react'
 import styles from "./OrderInfo.module.css"
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 
 const OrderInfo: FC = () => {
+
+  const modalOrderFeedVisable = useSelector(store => store.feed.modalVisable);
+
 
   const today = new Date()
   const yesterday = new Date(
@@ -14,9 +18,9 @@ const OrderInfo: FC = () => {
     0,
   )
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${modalOrderFeedVisable && styles.mainModal}`} >
       <section className={styles.feedDetails}>
-        <p className={styles.number}>#034533</p>
+        <p className={`${styles.number} ${modalOrderFeedVisable && styles.numberModal}`}>#034533</p>
         <h4 className={styles.title}>Black Hole Singularity острый бургер</h4>
         <p className={styles.text}>Выполнен</p>
         <p className={styles.sostav}>Состав:</p>

@@ -22,7 +22,7 @@ const Profile: FC = () => {
     <main className={styles.main}>
       <nav className={styles.navigation}>
         <NavLink className={({ isActive }) => handleIsActiveLink(isActive)} to="/profile" end>Профиль</NavLink>
-        <NavLink className={({ isActive }) => handleIsActiveLink(isActive)} to="/profile/orders" end>История заказов</NavLink>
+        <NavLink className={({ isActive }) => handleIsActiveLink(isActive)} to="/profile/history-orders" end>История заказов</NavLink>
         <NavLink className={`${styles.link} ${styles.linkLogout}`} to="/" type='button' onClick={handleLogout}>Выход</NavLink>
         <p className={styles.text}>В этом разделе вы можете изменить свои персональные данные</p>
       </nav>

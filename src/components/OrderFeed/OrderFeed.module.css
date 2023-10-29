@@ -1,6 +1,4 @@
-.section {
-  max-width: 600px;
-}
+.section {}
 
 .orderList {
   display: flex;

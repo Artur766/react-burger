@@ -41,3 +41,22 @@ export interface ITokenResponse {
 export interface IAuthResult {
   payload: unknown;
 }
+
+export interface IMessage {
+  success: boolean
+  orders: [
+    {
+      ingredients: string[]
+      _id: string
+      name: string
+      status: string
+      number: number
+      createdAt: Date
+      updatedAt: Date
+      price: number
+      __v: number
+    }
+  ],
+  total: number
+  totalToday: number
+}
