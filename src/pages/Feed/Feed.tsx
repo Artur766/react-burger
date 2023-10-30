@@ -7,12 +7,15 @@ import { connect } from '../../services/actions/wsActionTypes';
 
 const Feed: FC = () => {
   const dispatch = useDispatch();
-  const { messages } = useSelector(store => store.orderFeed)
+  const arr = useSelector(store => store.orderFeed.messages)
 
   React.useEffect(() => {
-    dispatch(connect("wss://norma.nomoreparties.space/orders/all"))
-    console.log(messages);
-  }, [messages])
+    dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
+  }, []);
+
+  React.useEffect(() => {
+    console.log(arr);
+  }, [arr]);
 
   return (
     <>

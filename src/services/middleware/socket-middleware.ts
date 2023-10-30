@@ -1,6 +1,5 @@
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { Middleware } from "@reduxjs/toolkit";
-import { RootState } from "..";
 
 export type TwsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>,
@@ -13,11 +12,12 @@ export type TwsActionTypes = {
   onMessage: ActionCreatorWithPayload<any>,
 }
 
-export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, RootState> => {
-  return (store => {
+export const socketMiddleware = (wsActions: TwsActionTypes): Middleware => {
+  return (store) => {
     let socket: WebSocket | null = null;
 
-    return next => (action) => {
+    return next => action => {
+
       const { dispatch } = store;
       const {
         wsConnect,
@@ -28,6 +28,7 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, Root
         onError,
         onMessage,
         wsSendMessage } = wsActions;
+
 
       if (wsConnect.match(action)) {
         socket = new WebSocket(action.payload);
@@ -53,7 +54,7 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, Root
           dispatch(onClose());
         };
 
-        if (wsSendMessage?.match(action) === wsSendMessage) {
+        if (wsSendMessage && wsSendMessage.match(action)) {
           socket.send(JSON.stringify(action.payload))
         }
 
@@ -62,7 +63,7 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, Root
           socket = null;
         }
       }
-      next(action);
+      return next(action);
     };
-  });
+  };
 };

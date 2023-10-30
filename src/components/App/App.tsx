@@ -59,7 +59,7 @@ const App: FC = () => {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
-          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='796px' />} />
+          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='' />} />
         </Route>
         <Route path='/ingredient/' element={
           background

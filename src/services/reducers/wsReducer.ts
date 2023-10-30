@@ -2,11 +2,9 @@ import { createReducer } from "@reduxjs/toolkit";
 import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "../actions/wsActionTypes";
 import { IMessage } from "../../utils/types";
 
-
-
 type TWSState = {
   wsConnected: boolean;
-  messages: IMessage | [];
+  messages: IMessage[] | undefined;
 
   error?: string;
 }
@@ -34,6 +32,6 @@ export const wsReducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
     .addCase(wsMessage, (state, action) => {
-      // state.messages = action.payload;
+      state.messages = action.payload;
     })
 })

@@ -6,7 +6,15 @@ import currentIngredientSlice from "./reducers/currentIngredientSlice";
 import orderSlice from "./reducers/orderSlice";
 import authSlice from "./reducers/authSlice";
 import orderFeed from "./reducers/orderFeed";
-import { connect, disconnect, wsClose, wsConnecting, wsError, wsMessage, wsOpen } from "./actions/wsActionTypes"
+import {
+  connect,
+  disconnect,
+  wsClose,
+  wsConnecting,
+  wsError,
+  wsMessage,
+  wsOpen
+} from "./actions/wsActionTypes"
 import { wsReducer } from "./reducers/wsReducer";
 import { socketMiddleware } from "./middleware/socket-middleware";
 
@@ -30,11 +38,12 @@ const feedOrdersMiddleware = socketMiddleware({
   onMessage: wsMessage,
 })
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(feedOrdersMiddleware)
-  }
+  },
+
 })
 export type RootState = ReturnType<typeof rootReducer>;
 
