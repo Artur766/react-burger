@@ -7,21 +7,17 @@ import { connect } from '../../services/actions/wsActionTypes';
 
 const Feed: FC = () => {
   const dispatch = useDispatch();
-  const arr = useSelector(store => store.orderFeed.messages)
+  const messageWebSocket = useSelector(store => store.orderFeed.messages)
 
   React.useEffect(() => {
     dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
-  }, []);
-
-  React.useEffect(() => {
-    console.log(arr);
-  }, [arr]);
+  }, [dispatch]);
 
   return (
     <>
       <h1 className={styles.title}>Лента заказаов</h1>
       <main className={styles.main}>
-        <OrderFeed path="/feed/" localStorageKey="feedOrderModalOpen" />
+        <OrderFeed messageWebSocket={messageWebSocket} path="/feed/" localStorageKey="feedOrderModalOpen" />
         <DescriptionOrderFeed />
       </main>
     </>

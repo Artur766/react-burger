@@ -22,6 +22,7 @@ import Feed from '../../pages/Feed/Feed';
 import OrderInfo from '../OrderInfo/OrderInfo';
 import { closeOrderFeedModal } from '../../services/reducers/orderFeed';
 import OrderFeed from '../OrderFeed/OrderFeed';
+import { connect } from 'http2';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);

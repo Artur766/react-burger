@@ -6,48 +6,71 @@ import { useDispatch, useSelector } from '../../services/types/hooks';
 import { openOrderFeedtModal } from '../../services/reducers/orderFeed';
 import { IOrderFeed } from './OrderFeed';
 
+interface IItemOrder extends IOrderFeed {
+  item: {
+    ingredients: string[];
+    _id: string;
+    name: string;
+    status: string;
+    number: number;
+    createdAt: Date;
+    updatedAt: Date;
+    price: number;
+    __v: number;
+  }
+}
 
-const ItemOrder: FC<IOrderFeed> = ({ path, width, localStorageKey }) => {
+const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item }) => {
 
   const navigate = useNavigate();
   let location = useLocation();
   const dispatch = useDispatch();
+  const createdAt = new Date(item.createdAt);
+  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const lastImageSrc = ingredients.find(ingredient => ingredient._id === item.ingredients[5])?.image;
 
-  const today = new Date()
-  const yesterday = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 1,
-    today.getHours(),
-    today.getMinutes() - 1,
-    0,
-  )
+  const sumOrder = ingredients.reduce((acc, ingredient) => {
+    if (item.ingredients.includes(ingredient._id)) {
+      return acc + ingredient.price;
+    }
+    return acc;
+  }, 0)
+
+
 
   function handleClickCard() {
     dispatch(openOrderFeedtModal())
 
-    navigate(path, { state: { background: location } });
+    navigate(`${path}/${item._id}`, { state: { background: location } });
     localStorage.setItem(localStorageKey, String(true));
   }
 
   return (
     <div className={styles.order} onClick={handleClickCard} style={{ width: width }}>
       <div className={styles.containerDate}>
-        <p className={styles.numberOrder}>#034535</p>
-        <FormattedDate className={styles.date} date={yesterday} />
+        <p className={styles.numberOrder}>#{item.number}</p>
+        <FormattedDate className={styles.date} date={createdAt} />
       </div>
-      <p className={styles.description}>Death Star Starship Main бургер</p>
+      <p className={styles.description}>{item.name}</p>
       <div className={styles.wrapper}>
         <div className={styles.imageContainer}>
-          <img className={styles.image} src="" alt="" />
-          <img className={styles.image} src="" alt="" />
-          <img className={styles.image} src="" alt="" />
-          <img className={styles.image} src="" alt="" />
-          <img className={styles.image} src="" alt="" />
-          <img className={styles.image} src="" alt="" />
+          {
+            item.ingredients.slice(0, 5).map((ingredient, i) => {
+              const image = ingredients.find(item => item._id === ingredient)?.image;
+              return <img key={i} className={styles.image} src={image} alt="" />
+            })
+          }
+          {item.ingredients.length > 5 && (
+            <>
+              <div className={styles.sumImage}>
+                +{item.ingredients.length - 5}
+              </div>
+              <img className={`${styles.image} ${styles.lastImage}`} src={lastImageSrc} alt="" />
+            </>
+          )}
         </div>
         <div className={styles.containerSum}>
-          <p className={styles.sumOrder}>470</p>
+          <p className={styles.sumOrder}>{sumOrder}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

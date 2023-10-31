@@ -21,14 +21,21 @@
 
 .listData {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  column-gap: 20px;
   row-gap: 8px;
   padding-top: 24px;
+  max-width: 245px;
 }
 
 .itemReadyData {
   composes: text text_type_digits-default from global;
   color: #00CCCC;
+  max-width: 150px;
+}
+
+.itemReadyData:nth-child(19n) {
+  margin-bottom: 10px;
 }
 
 .itemWorkData {

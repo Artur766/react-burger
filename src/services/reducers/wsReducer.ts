@@ -4,14 +4,14 @@ import { IMessage } from "../../utils/types";
 
 type TWSState = {
   wsConnected: boolean;
-  messages: IMessage[] | undefined;
+  messages: IMessage | undefined;
 
   error?: string;
 }
 
 const initialState: TWSState = {
   wsConnected: false,
-  messages: [],
+  messages: undefined,
   error: ''
 }
 
