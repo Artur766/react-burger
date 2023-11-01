@@ -17,10 +17,11 @@ interface IItemOrder extends IOrderFeed {
     updatedAt: Date;
     price: number;
     __v: number;
-  }
+  },
+  isReadiness?: boolean
 }
 
-const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item }) => {
+const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item, isReadiness }) => {
 
   const navigate = useNavigate();
   let location = useLocation();
@@ -51,7 +52,16 @@ const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item }) => {
         <p className={styles.numberOrder}>#{item.number}</p>
         <FormattedDate className={styles.date} date={createdAt} />
       </div>
-      <p className={styles.description}>{item.name}</p>
+      <div>
+        <p className={styles.description}>{item.name}</p>
+        {
+          isReadiness && (
+            item.status === 'created' ? <p className={styles.isReadiness}>Создан</p> :
+              item.status === 'pending' ? <p className={styles.isReadiness}>Готовится</p> :
+                <p className={styles.isReadinessDone}>Выполнен</p>
+          )
+        }
+      </div>
       <div className={styles.wrapper}>
         <div className={styles.imageContainer}>
           {

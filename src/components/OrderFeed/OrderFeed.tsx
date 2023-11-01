@@ -10,10 +10,10 @@ export interface IOrderFeed {
   localStorageKey: "feedOrderModalOpen" | "feedOrderProfileModalOpen",
   width?: string,
   messageWebSocket?: IMessage,
-
+  isReadiness?: boolean
 }
 
-const OrderFeed: FC<IOrderFeed> = ({ path, localStorageKey, width, messageWebSocket }) => {
+const OrderFeed: FC<IOrderFeed> = ({ path, localStorageKey, width, messageWebSocket, isReadiness }) => {
 
   const modalVisable = useSelector(store => store.feed.modalVisable);
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ const OrderFeed: FC<IOrderFeed> = ({ path, localStorageKey, width, messageWebSoc
           messageWebSocket?.orders.map(item => {
             return (
               <ItemOrder
+                isReadiness={isReadiness}
                 item={item}
                 key={item._id}
                 localStorageKey={localStorageKey}

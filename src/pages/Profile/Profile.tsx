@@ -3,7 +3,7 @@ import styles from "./Profile.module.css"
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/types/hooks';
 import { logout } from '../../services/reducers/authSlice';
-
+import { connect, disconnect } from '../../services/actions/wsActionTypes';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,13 @@ const Profile: FC = () => {
     dispatch(logout())
       .then(() => navigate("/login", { replace: true }));
   }
+
+  React.useEffect(() => {
+    dispatch(connect("wss://norma.nomoreparties.space/orders"));
+    return () => {
+      dispatch(disconnect());
+    }
+  }, [dispatch]);
 
   return (
     <main className={styles.main}>

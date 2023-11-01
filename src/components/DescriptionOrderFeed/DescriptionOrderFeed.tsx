@@ -4,11 +4,7 @@ import { useSelector } from '../../services/types/hooks'
 
 const DescriptionOrderFeed: FC = () => {
 
-
   const messageWebSocket = useSelector(store => store.orderFeed.messages);
-
-  console.log(messageWebSocket);
-
 
   return (
     <section className={styles.descriptionList}>
@@ -27,8 +23,8 @@ const DescriptionOrderFeed: FC = () => {
           <h4 className={styles.title}>В работе:</h4>
           <div className={styles.listData}>
             {
-              messageWebSocket?.orders.map((item, i) => item.status !== "done" && (
-                <p key={item._id} className={styles.itemReadyData}>{item.number}</p>
+              messageWebSocket?.orders.map(item => item.status !== "done" && (
+                <p key={item._id} className={styles.itemWorkData}>{item.number}</p>
               ))
             }
           </div>

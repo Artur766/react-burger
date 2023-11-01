@@ -22,12 +22,12 @@ import Feed from '../../pages/Feed/Feed';
 import OrderInfo from '../OrderInfo/OrderInfo';
 import { closeOrderFeedModal } from '../../services/reducers/orderFeed';
 import OrderFeed from '../OrderFeed/OrderFeed';
-import { connect } from 'http2';
 
 const App: FC = () => {
   const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
   const modalOrdervisable = useSelector(store => store.order.modalOrdervisable);
   const modalOrderFeedVisable = useSelector(store => store.feed.modalVisable);
+  const messageWebSocket = useSelector(store => store.orderFeed.messages)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,6 +48,8 @@ const App: FC = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
+  console.log(messageWebSocket);
+
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -60,7 +62,7 @@ const App: FC = () => {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
-          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='' />} />
+          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='796px' messageWebSocket={messageWebSocket} isReadiness={true} />} />
         </Route>
         <Route path='/ingredient/' element={
           background

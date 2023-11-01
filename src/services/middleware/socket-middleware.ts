@@ -1,5 +1,6 @@
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 import { Middleware } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie';
 
 export type TwsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>,
@@ -31,7 +32,9 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware => {
 
 
       if (wsConnect.match(action)) {
-        socket = new WebSocket(action.payload);
+        const token = Cookies.get("token");
+        const url = `${action.payload}?token=${token}`;
+        socket = new WebSocket(url);
         dispatch(wsConnecting())
       }
 
