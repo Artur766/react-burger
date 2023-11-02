@@ -64,7 +64,7 @@ const App: FC = () => {
           <Route path="" element={<UserForm />} />
           <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='796px' messageWebSocket={messageWebSocket} isReadiness={true} />} />
         </Route>
-        <Route path='/ingredient/' element={
+        <Route path='/ingredient/:id' element={
           background
             ?
             <>

@@ -25,26 +25,26 @@ const IngredientDetails: FC = () => {
   }, [ingredients, modalIngredientVisable])
 
   return (
-    <div className={`${!modalIngredientVisable && styles.container}`}>
+    <div className={modalIngredientVisable ? styles.container : ""}>
       {!modalIngredientVisable && <h1 className={styles.title}>Детали ингредиента</h1>}
-      <img className={styles.image} src={currentIngredient.image_large} alt="ингредиент" />
+      <img className={styles.image} src={currentIngredient?.image_large} alt="ингредиент" />
       <p className={styles.titleIngredient}>{currentIngredient?.name}</p>
       <div className={styles.containerSpecifications}>
         <div>
           <p className={styles.text}>Калории,ккал</p>
-          <p className={styles.meaning}>{currentIngredient.calories}</p>
+          <p className={styles.meaning}>{currentIngredient?.calories}</p>
         </div>
         <div>
           <p className={styles.text}>Белки, г</p>
-          <p className={styles.meaning}>{currentIngredient.proteins}</p>
+          <p className={styles.meaning}>{currentIngredient?.proteins}</p>
         </div>
         <div>
           <p className={styles.text}>Жиры, г</p>
-          <p className={styles.meaning}>{currentIngredient.fat}</p>
+          <p className={styles.meaning}>{currentIngredient?.fat}</p>
         </div>
         <div>
           <p className={styles.text}>Углеводы, г</p>
-          <p className={styles.meaning}>{currentIngredient.carbohydrates}</p>
+          <p className={styles.meaning}>{currentIngredient?.carbohydrates}</p>
         </div>
       </div>
     </div>
