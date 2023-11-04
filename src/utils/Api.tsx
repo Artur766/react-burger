@@ -22,6 +22,14 @@ export function getAllIngredients() {
   })
 }
 
+export function getOrderApi(id: number) {
+  return request(`${BASE_URL}/orders/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
 export function createOrder(allId: string) {
   return request(`${BASE_URL}/orders`, {
     method: "POST",

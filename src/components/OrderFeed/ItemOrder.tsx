@@ -3,7 +3,7 @@ import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burge
 import styles from "./OrderFeed.module.css";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/types/hooks';
-import { openOrderFeedtModal } from '../../services/reducers/orderFeed';
+import { openOrderFeedtModal } from '../../services/reducers/orderFeedSlice';
 import { IOrderFeed } from './OrderFeed';
 
 interface IItemOrder extends IOrderFeed {
@@ -30,18 +30,16 @@ const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item, isReadi
   const ingredients = useSelector(store => store.ingredients.ingredients);
   const lastImageSrc = ingredients.find(ingredient => ingredient._id === item.ingredients[5])?.image;
 
-  const sumOrder = ingredients.reduce((acc, ingredient) => {
+  const sum = ingredients.reduce((acc, ingredient) => {
     if (item.ingredients.includes(ingredient._id)) {
       return acc + ingredient.price;
     }
     return acc;
-  }, 0)
-
-
+  }, 0);
 
   function handleClickCard() {
-    dispatch(openOrderFeedtModal())
-
+    dispatch(openOrderFeedtModal({ item, sum }));
+    localStorage.setItem("number", String(item.number));
     navigate(`${path}/${item._id}`, { state: { background: location } });
     localStorage.setItem(localStorageKey, String(true));
   }
@@ -80,7 +78,7 @@ const ItemOrder: FC<IItemOrder> = ({ path, width, localStorageKey, item, isReadi
           )}
         </div>
         <div className={styles.containerSum}>
-          <p className={styles.sumOrder}>{sumOrder}</p>
+          <p className={styles.sumOrder}>{sum}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

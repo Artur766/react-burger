@@ -20,7 +20,7 @@ import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElemen
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
 import Feed from '../../pages/Feed/Feed';
 import OrderInfo from '../OrderInfo/OrderInfo';
-import { closeOrderFeedModal } from '../../services/reducers/orderFeed';
+import { closeOrderFeedModal } from '../../services/reducers/orderFeedSlice';
 import OrderFeed from '../OrderFeed/OrderFeed';
 
 const App: FC = () => {
@@ -47,8 +47,6 @@ const App: FC = () => {
   React.useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
-
-  console.log(messageWebSocket);
 
   return (
     <div className={styles.app}>
@@ -82,11 +80,23 @@ const App: FC = () => {
             <>
               <Feed />
               <Modal onClose={handleCloseAllModal} isOpen={modalOrderFeedVisable}  >
-                <OrderInfo />
+                <OrderInfo localStorageKey='feedOrderModalOpen' />
               </Modal>
             </>
             :
-            <OrderInfo />
+            <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
+        } />
+        <Route path='/profile/history-orders/:id' element={
+          background
+            ?
+            <>
+              <Profile />
+              <Modal onClose={handleCloseAllModal} isOpen={modalOrderFeedVisable}  >
+                <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
+              </Modal>
+            </>
+            :
+            <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
         } />
         <Route path='/*' element={<NotFound />} />
       </Routes>

@@ -5,7 +5,7 @@ import ingredientsConstructorSlice from "./reducers/ingredientsConstructorSlice"
 import currentIngredientSlice from "./reducers/currentIngredientSlice";
 import orderSlice from "./reducers/orderSlice";
 import authSlice from "./reducers/authSlice";
-import orderFeed from "./reducers/orderFeed";
+
 import {
   connect,
   disconnect,
@@ -17,6 +17,7 @@ import {
 } from "./actions/wsActionTypes"
 import { wsReducer } from "./reducers/wsReducer";
 import { socketMiddleware } from "./middleware/socket-middleware";
+import orderFeedSlice from "./reducers/orderFeedSlice";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsSlice,
@@ -24,7 +25,7 @@ export const rootReducer = combineReducers({
   currentIngredient: currentIngredientSlice,
   order: orderSlice,
   auth: authSlice,
-  feed: orderFeed,
+  feed: orderFeedSlice,
   orderFeed: wsReducer,
 });
 

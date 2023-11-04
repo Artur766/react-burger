@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
 import styles from "./OrderFeed.module.css";
-import { openOrderFeedtModal } from '../../services/reducers/orderFeed';
 import ItemOrder from './ItemOrder';
-import { useDispatch, useSelector } from '../../services/types/hooks';
 import { IMessage } from '../../utils/types';
 
 export interface IOrderFeed {
@@ -14,15 +12,6 @@ export interface IOrderFeed {
 }
 
 const OrderFeed: FC<IOrderFeed> = ({ path, localStorageKey, width, messageWebSocket, isReadiness }) => {
-
-  const modalVisable = useSelector(store => store.feed.modalVisable);
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    if (localStorage.getItem(localStorageKey)) {
-      dispatch(openOrderFeedtModal());
-    }
-  }, [modalVisable])
 
   return (
     <section className={styles.section}>
