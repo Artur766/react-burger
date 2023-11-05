@@ -12,7 +12,7 @@ export interface IIngredient {
   image_large: string;
   productId: string,
   count: number,
-  __v?: number,
+  __v: number,
   id?: string
 }
 
@@ -34,9 +34,29 @@ export type TDropCollectedProps = {
 export interface ITokenResponse {
   success: boolean,
   accessToken: string,
-  refreshToken: string
+  refreshToken: string,
+  user: IUser
 }
 
 export interface IAuthResult {
   payload: unknown;
+}
+
+export interface IMessage {
+  success: boolean
+  orders: [
+    {
+      ingredients: string[]
+      _id: string
+      name: string
+      status: string
+      number: number
+      createdAt: Date
+      updatedAt: Date
+      price: number
+      __v: number
+    }
+  ],
+  total: number
+  totalToday: number
 }

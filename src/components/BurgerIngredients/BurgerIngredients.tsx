@@ -3,15 +3,14 @@ import styles from "./BurgerIngredients.module.css";
 import Tabs from './Tabs/Tabs';
 import { arrTitleIngredients } from '../../utils/constants';
 import Ingredient from './Ingredient/Ingredient';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/types/hooks';
 import { Loader } from '../loader/loader';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import { RootState } from '../../services';
 import { IIngredient, TCurrentTab } from '../../utils/types';
 
 const BurgerIngredients = () => {
 
-  const { ingredients, ingredientsRequest, error } = useSelector((store: RootState) => store.ingredients);
+  const { ingredients, ingredientsRequest, error } = useSelector(store => store.ingredients);
   const h2Refs = React.useRef<HTMLHeadingElement[]>([]);
   const [active, setActive] = React.useState<TCurrentTab>("buns");
 

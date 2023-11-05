@@ -1,5 +1,5 @@
 import React, { ReactElement, FC } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Navigate, useLocation } from "react-router-dom";
 import { getUserInfo } from '../../services/reducers/authSlice';
 import { RootState } from '../../services';

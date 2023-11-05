@@ -1,4 +1,5 @@
 import { BASE_URL } from "./constants";
+import Cookies from 'js-cookie';
 
 function handleResponse<T>(res: Response): Promise<T> {
   if (res.ok) return res.json();
@@ -21,11 +22,20 @@ export function getAllIngredients() {
   })
 }
 
-export function createOrder(allId: string) {
+export function getOrderApi(id: number) {
+  return request(`${BASE_URL}/orders/${id}`, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
+export function createOrder(allId: string[]) {
   return request(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + Cookies.get("token")
     },
     body: JSON.stringify({ "ingredients": allId })
   })

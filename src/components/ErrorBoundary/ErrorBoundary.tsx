@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styles from "./ErrorBoundary.module.css"
+import styles from "./ErrorBoundary.module.css";
 
 interface IErrorBoundary {
   error: string

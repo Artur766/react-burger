@@ -11,6 +11,7 @@
   transition: opacity .5s linear;
   visibility: hidden;
   opacity: 0;
+  z-index: 100000;
 }
 
 

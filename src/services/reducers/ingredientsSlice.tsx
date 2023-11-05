@@ -1,35 +1,47 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getAllIngredients } from "../../utils/Api";
+import { IIngredient } from '../../utils/types';
 
 export const getIngredients = createAsyncThunk(
   "ingredients/getIngredients", async () => {
     const response = await getAllIngredients();
-    return response.data;
+
+    return (response as { data: IIngredient[] }).data;
   }
 )
 
+interface ingredients {
+  ingredients: IIngredient[],
+  error: string,
+  ingredientsRequest: boolean,
+}
+
+const initialState: ingredients = {
+  ingredients: [],
+  error: "",
+  ingredientsRequest: false,
+}
+
 const ingredientsSlice = createSlice({
   name: "ingredients",
-  initialState: {
-    ingredients: [],
-    error: "",
-    ingredientsRequest: false,
-  },
+  initialState,
   reducers: {
     incrementCount(state, action) {
       const ingredient = state.ingredients.find(item => item._id === action.payload);
-      if (ingredient.type !== "bun") {
+
+      if (ingredient && ingredient.type !== "bun") {
         ingredient.count++;
-      } else {
+      } else if (ingredient) {
         ingredient.count += 2;
       }
     }
     ,
     decrementCount(state, action) {
       const ingredient = state.ingredients.find(item => item._id === action.payload);
-      if (ingredient.type !== "bun" && ingredient) {
+
+      if (ingredient && ingredient.type !== "bun") {
         ingredient.count--;
-      } else {
+      } else if (ingredient) {
         ingredient.count -= 2;
       }
     },
@@ -45,6 +57,7 @@ const ingredientsSlice = createSlice({
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredientsRequest = false;
+
         state.ingredients = action.payload.map(item => ({
           ...item,
           count: 0,
@@ -61,9 +74,6 @@ const ingredientsSlice = createSlice({
 export default ingredientsSlice.reducer;
 
 export const {
-  getIngredientsRequest,
-  getIngredientsFailed,
-  getIngredientsSuccess,
   incrementCount,
   decrementCount,
   resetCount

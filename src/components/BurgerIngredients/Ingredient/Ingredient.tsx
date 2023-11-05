@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from "./Ingredient.module.css";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../services/types/hooks';
 import { openIngredientModal } from '../../../services/reducers/currentIngredientSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IIngredient } from '../../../utils/types';
@@ -47,7 +47,7 @@ const Ingredient: FC<IIngredientProps> = ({ ingradient }) => {
       onClick={handleClickCard}
       style={{ opacity: opacityToUse }}
     >
-      {ingradient.count !== 0 && <Counter count={ingradient.count} size="default" extraClass={`${styles.counter}"m-1"`} />}
+      {ingradient.count !== 0 && <Counter count={ingradient.count ?? 0} size="default" extraClass={`${styles.counter}"m-1"`} />}
       <img className={styles.image} src={ingradient.image} alt="ингредиент" />
       <div className={styles.containerIngredients}>
         <p className={styles.price}>{ingradient.price}</p>

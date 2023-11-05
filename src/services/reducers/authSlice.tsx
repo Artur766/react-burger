@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUserInfoApi, loginApi, logoutApi, registerApi, updateUserInfoApi } from "../../utils/auth";
 import Cookies from 'js-cookie';
 import { forgotPasswordApi } from "../../utils/Api";
+import { IUser } from "../../utils/types";
+
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ email, password, name }) => {
+  async ({ email, password, name }: IUser) => {
     const response = await registerApi({ email, password, name });
     return response;
   }
@@ -13,7 +15,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }) => {
+  async ({ email, password }: IUser) => {
     const response = await loginApi({ email, password });
     return response;
   }
@@ -21,7 +23,7 @@ export const login = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
-  async ({ email }) => {
+  async ({ email }: IUser) => {
     const response = await forgotPasswordApi(email);
     return response;
   }
@@ -39,30 +41,32 @@ export const getUserInfo = createAsyncThunk("auth/getUser", getUserInfoApi);
 
 export const updateUserInfo = createAsyncThunk(
   "auth/updateUser",
-  async ({ name, email, password }) => {
+  async ({ name, email, password }: IUser) => {
     const response = await updateUserInfoApi({ name, email, password });
     return response;
   }
 )
 
+const initialState = {
+  user: {
+    name: "",
+    email: "",
+
+  },
+  loading: false,
+  error: "",
+  successUpdateUser: false,
+  resetDone: false,
+  isLoggedIn: false
+}
+
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    user: {
-      name: "",
-      email: "",
-
-    },
-    loading: false,
-    error: "",
-    successUpdateUser: false,
-    resetDone: false,
-    isLoggedIn: false
-  },
+  initialState,
   reducers: {
     resetSubmitMessageRequest(state) {
       state.error = "";
-      state.successUpdateUser = "";
+      state.successUpdateUser = false;
     }
   },
   extraReducers: builder => {
@@ -73,11 +77,14 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = {
-          name: action.payload.user.name,
-          email: action.payload.user.email,
+        if (action.payload && action.payload.user) {
+          const { name, email } = action.payload.user;
+          state.user = {
+            name: name || "",
+            email,
+          };
+          state.isLoggedIn = true;
         }
-        state.isLoggedIn = true;
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -89,11 +96,14 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = {
-          name: action.payload.user.name,
-          email: action.payload.user.email,
+        if (action.payload && action.payload.user) {
+          const { name, email } = action.payload.user;
+          state.user = {
+            name: name || "",
+            email,
+          };
+          state.isLoggedIn = true;
         }
-        state.isLoggedIn = true;
       })
       .addCase(forgotPassword.pending, (state) => {
         state.loading = true;
@@ -136,8 +146,8 @@ const authSlice = createSlice({
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.loading = false;
         state.user = {
-          name: action.payload.user.name,
-          email: action.payload.user.email,
+          name: (action.payload as { user: { name: string } }).user.name,
+          email: (action.payload as { user: { email: string } }).user.email,
         }
         state.isLoggedIn = true;
       })
@@ -151,10 +161,10 @@ const authSlice = createSlice({
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.loading = false;
         state.user = {
-          name: action.payload.user.name,
-          email: action.payload.user.email,
+          name: (action.payload as { user: { name: string } }).user.name,
+          email: (action.payload as { user: { email: string } }).user.email,
         }
-        state.successUpdateUser = action.payload.success;
+        state.successUpdateUser = (action.payload as { success: boolean }).success;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
         state.loading = false;

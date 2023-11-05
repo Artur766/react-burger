@@ -2,18 +2,15 @@ import React, { FormEvent, FC, } from 'react'
 import { PasswordInput, Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useFormValidation } from '../../hooks/useFormValidation';
 import styles from "./UserForm.module.css";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { resetSubmitMessageRequest, updateUserInfo } from '../../services/reducers/authSlice';
-import { RootState } from '../../services';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 
 const UserForm: FC = () => {
   const { values, errors, setErrors, handleChange, reset } = useFormValidation();
-  const { user, error, successUpdateUser } = useSelector((store: RootState) => store.auth);
+  const { user, error, successUpdateUser } = useSelector(store => store.auth);
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const dispatch: ThunkDispatch<any, void, AnyAction> = useDispatch();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (user) {
@@ -42,7 +39,6 @@ const UserForm: FC = () => {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    // @ts-ignore 
     dispatch(updateUserInfo({ name: values.name, email: values.email, password: values.password }));
   }
 

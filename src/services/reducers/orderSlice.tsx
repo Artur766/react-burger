@@ -4,20 +4,32 @@ import { createOrder } from '../../utils/Api';
 
 export const createOrderNumber = createAsyncThunk(
   'order/createOrderNumber',
-  async (id) => {
+  async (id: string[]) => {
     const response = await createOrder(id);
-    return response.order.number;
+
+    const orderNumber = (response as { order: { number: number } }).order.number;
+
+    return orderNumber;
   }
 )
 
+interface IOrder {
+  orderNumber: number,
+  modalOrdervisable: boolean,
+  orderRequest: boolean,
+  error: string,
+}
+
+const initialState: IOrder = {
+  orderNumber: 0,
+  modalOrdervisable: false,
+  orderRequest: false,
+  error: "",
+}
+
 const orderSlice = createSlice({
   name: "order",
-  initialState: {
-    orderNumber: 0,
-    modalOrdervisable: false,
-    orderRequest: false,
-    error: "",
-  },
+  initialState,
   reducers: {
     closeModalOrder(state) {
       state.modalOrdervisable = false;

@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/types/hooks";
 import { closeIngredientModal } from '../../services/reducers/currentIngredientSlice';
 import { closeModalOrder } from '../../services/reducers/orderSlice';
 import Main from '../../pages/Main/Main';
@@ -15,16 +15,19 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
-import Orders from '../Orders/Orders';
 import UserForm from '../UserForm/UserForm';
 import ProtectedRouteElement from '../ProtectedRouteElement/ProtectedRouteElement';
 import { getIngredients } from '../../services/reducers/ingredientsSlice';
-import { RootState } from '../../services';
-import { refreshToken } from '../../utils/auth';
+import Feed from '../../pages/Feed/Feed';
+import OrderInfo from '../OrderInfo/OrderInfo';
+import { closeOrderFeedModal } from '../../services/reducers/orderFeedSlice';
+import OrderFeed from '../OrderFeed/OrderFeed';
 
 const App: FC = () => {
-  const modalIngredientVisable = useSelector((store: RootState) => store.currentIngredient.modalIngredientVisable);
-  const modalOrdervisable = useSelector((store: RootState) => store.order.modalOrdervisable);
+  const modalIngredientVisable = useSelector(store => store.currentIngredient.modalIngredientVisable);
+  const modalOrdervisable = useSelector(store => store.order.modalOrdervisable);
+  const modalOrderFeedVisable = useSelector(store => store.feed.modalVisable);
+  const messageWebSocket = useSelector(store => store.orderFeed.messages)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,14 +35,16 @@ const App: FC = () => {
   const background = location.state && location.state.background;
 
   function handleCloseAllModal() {
-    navigate("/")
+    navigate(-1);
     dispatch(closeIngredientModal());
     dispatch(closeModalOrder());
+    dispatch(closeOrderFeedModal());
     localStorage.removeItem("ingredientModalOpen");
+    localStorage.removeItem("feedOrderModalOpen");
+    localStorage.removeItem("feedOrderProfileModalOpen");
   }
 
   React.useEffect(() => {
-    //@ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 
@@ -48,13 +53,14 @@ const App: FC = () => {
       <AppHeader />
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path='/feed' element={<Feed />} />
         <Route path='/register' element={<ProtectedRouteElement element={<Register />} anonymous={true} />} />
         <Route path='/login' element={<ProtectedRouteElement element={<Login />} anonymous={true} />} />
         <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true} />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} >
           <Route path="" element={<UserForm />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="history-orders" element={<OrderFeed path="/profile/history-orders/" localStorageKey='feedOrderProfileModalOpen' width='796px' messageWebSocket={messageWebSocket} isReadiness={true} />} />
         </Route>
         <Route path='/ingredient/:id' element={
           background
@@ -67,6 +73,30 @@ const App: FC = () => {
             </>
             :
             <IngredientDetails />
+        } />
+        <Route path='/feed/:id' element={
+          background
+            ?
+            <>
+              <Feed />
+              <Modal onClose={handleCloseAllModal} isOpen={modalOrderFeedVisable}  >
+                <OrderInfo localStorageKey='feedOrderModalOpen' />
+              </Modal>
+            </>
+            :
+            <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
+        } />
+        <Route path='/profile/history-orders/:id' element={
+          background
+            ?
+            <>
+              <Profile />
+              <Modal onClose={handleCloseAllModal} isOpen={modalOrderFeedVisable}  >
+                <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
+              </Modal>
+            </>
+            :
+            <OrderInfo localStorageKey='feedOrderProfileModalOpen' />
         } />
         <Route path='/*' element={<NotFound />} />
       </Routes>
