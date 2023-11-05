@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import styles from "./DescriptionOrderFeed.module.css"
-import { useSelector } from '../../services/types/hooks'
+import React, { FC } from 'react';
+import styles from "./DescriptionOrderFeed.module.css";
+import { useSelector } from '../../services/types/hooks';
 
 const DescriptionOrderFeed: FC = () => {
 

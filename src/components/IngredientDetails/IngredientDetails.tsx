@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "../../services/types/hooks";
 import { useParams } from 'react-router-dom';
 import { openIngredientModal, visableIngredientDetails } from '../../services/reducers/currentIngredientSlice';
 import { IIngredient } from '../../utils/types';
-import { connect, disconnect } from '../../services/actions/wsActionTypes';
 
 const IngredientDetails: FC = () => {
 
@@ -15,8 +14,6 @@ const IngredientDetails: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients.ingredients);
-
-
 
   React.useEffect(() => {
     const ingredient = ingredients.find((item: IIngredient) => item._id === id);

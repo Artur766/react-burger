@@ -18,7 +18,8 @@ function Order() {
   function handleCreateOrder() {
     if (Cookies.get("token")) {
       const ingredientsId = ingredients.map(item => item._id);
-      ingredientsId.push(bun._id)
+      ingredientsId.push(bun._id);
+
       dispatch(createOrderNumber(ingredientsId))
     } else {
       localStorage.setItem('redirectPath', location.pathname);

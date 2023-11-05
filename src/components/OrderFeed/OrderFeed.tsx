@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styles from "./OrderFeed.module.css";
-import ItemOrder from './ItemOrder';
+import ItemOrder from './ItemOrder/ItemOrder';
 import { IMessage } from '../../utils/types';
 
 export interface IOrderFeed {

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from "./OrderFeed.module.css";
+import styles from "./ItemOrder.module.css";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from '../../services/types/hooks';
-import { openOrderFeedtModal } from '../../services/reducers/orderFeedSlice';
-import { IOrderFeed } from './OrderFeed';
+import { useDispatch, useSelector } from '../../../services/types/hooks';
+import { openOrderFeedtModal } from '../../../services/reducers/orderFeedSlice';
+import { IOrderFeed } from '../OrderFeed';
 
 interface IItemOrder extends IOrderFeed {
   item: {

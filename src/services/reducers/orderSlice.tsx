@@ -4,7 +4,7 @@ import { createOrder } from '../../utils/Api';
 
 export const createOrderNumber = createAsyncThunk(
   'order/createOrderNumber',
-  async (id: string) => {
+  async (id: string[]) => {
     const response = await createOrder(id);
 
     const orderNumber = (response as { order: { number: number } }).order.number;

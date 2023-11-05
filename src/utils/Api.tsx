@@ -30,7 +30,7 @@ export function getOrderApi(id: number) {
   });
 }
 
-export function createOrder(allId: string) {
+export function createOrder(allId: string[]) {
   return request(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {

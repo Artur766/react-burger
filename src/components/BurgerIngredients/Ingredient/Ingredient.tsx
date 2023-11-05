@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from "./Ingredient.module.css";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../services/types/hooks';
 import { openIngredientModal } from '../../../services/reducers/currentIngredientSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IIngredient } from '../../../utils/types';
