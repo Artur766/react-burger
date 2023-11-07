@@ -8,7 +8,8 @@ export const wsClose = createAction('WS_CONNECTION_CLOSE');
 export const wsMessage = createAction<any, 'WS_CONNECTION_MESSAGE'>('WS_CONNECTION_MESSAGE');
 export const wsError = createAction<string, 'WS_CONNECTION_ERROR'>('WS_CONNECTION_ERROR');
 
-export type TWbActions = ReturnType<typeof connect>
+export type TWbActions =
+  ReturnType<typeof connect>
   | ReturnType<typeof disconnect>
   | ReturnType<typeof wsConnecting>
   | ReturnType<typeof wsOpen>

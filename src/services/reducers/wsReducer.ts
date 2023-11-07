@@ -5,12 +5,14 @@ import { IMessage } from "../../utils/types";
 type TWSState = {
   wsConnected: boolean;
   messages: IMessage | undefined;
+  messagesProfile: IMessage | undefined;
   error?: string;
 }
 
 const initialState: TWSState = {
   wsConnected: false,
   messages: undefined,
+  messagesProfile: undefined,
   error: ''
 }
 

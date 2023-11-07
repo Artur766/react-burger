@@ -5,7 +5,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-redux": "^7.1.27",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
@@ -20,7 +19,6 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
-    "typescript": "^4.9.5",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
@@ -52,13 +50,21 @@
   },
   "homepage": "https://artur766.github.io/react-burger/",
   "devDependencies": {
-    "@types/jest": "^29.5.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.7",
     "@types/node": "^20.8.3",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
     "css-loader": "^6.8.1",
+    "cypress": "^13.4.0",
+    "eslint-plugin-cypress": "^2.15.1",
+    "fetch-mock": "^9.11.0",
     "gh-pages": "^6.0.0",
+    "react-test-renderer": "^18.2.0",
+    "redux-mock-store": "^1.5.4",
     "style-loader": "^3.3.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2",
     "webpack": "^5.88.2"
   }
 }
