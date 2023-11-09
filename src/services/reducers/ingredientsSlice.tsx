@@ -58,6 +58,7 @@ const ingredientsSlice = createSlice({
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredientsRequest = false;
 
+
         state.ingredients = action.payload.map(item => ({
           ...item,
           count: 0,
