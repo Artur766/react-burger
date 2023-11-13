@@ -177,7 +177,7 @@ describe('authSlice', () => {
       expect(nextState.user).toEqual(user);
    });
 
-   it('should handle register.rejected', () => {
+   it('should handle login.rejected', () => {
 
       const initialState = {
          user: {
