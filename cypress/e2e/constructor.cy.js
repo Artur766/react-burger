@@ -14,26 +14,28 @@ describe('service is available', function () {
     cy.contains('Соберите бургер');
 
     //проверям что булка существует и модлка открывается 
-    cy.get('.Ingredient_card__Ssxog').first().contains('Краторная булка N-200i').click();
+    cy.get('[data-testid="ingredient-card"]').first().should('contain', 'Краторная булка N-200i').click();
 
     cy.contains('Детали ингредиента');
 
     //закрываем модалку
     cy.get('body').type('{esc}');
-    cy.get('.ModalOverlay_modalOverlay__mpk-v').should('not.be.visible');
+    cy.get('[data-testid="modal-overlay"]').should('not.be.visible');
   });
 
   it('should drag ingredients to the constructor', () => {
 
-    cy.get('.Ingredient_card__Ssxog').first().as('bun');
-    cy.get('.Ingredient_card__Ssxog').last().as('ingredient');
+    cy.get('[data-testid="ingredient-card"]').first().as('bun');
+    cy.get('[data-testid="ingredient-card"]').last().as('ingredient');
+    cy.get('[data-testid="constructor-bun"]').first().as('bunContainer');
+    cy.get('[data-testid="constructor-ingredient"]').as('ingredientContainer')
 
     //Проверяем что ингредиенит и булка перетаскивается
     cy.get('@bun').trigger("dragstart");
-    cy.get('.Bun_emptyElementPosTop__X5TGy').trigger("drop");
+    cy.get('@bunContainer').trigger("drop");
 
     cy.get('@ingredient').trigger("dragstart");
-    cy.get('.BurgerConstructor_scrollBarContainer__KvplW').trigger("drop");
+    cy.get('@ingredientContainer').trigger("drop");
 
     //проверяем число булок и ингредиентов
     cy.get('.counter').first().as('quantityBun');
@@ -45,6 +47,6 @@ describe('service is available', function () {
     // клик на оформление заказа
     cy.get('button').contains('Оформить заказ').click();
     cy.contains('Ваш заказ начали готовить');
-    cy.get('.OrderDetails_totalPrice__eW9BM').contains("123");
+    cy.get('[data-testid="order-number"]').contains("123");
   });
 });

@@ -8,7 +8,7 @@ const OrderDetails: FC = () => {
   const orderNumber = useSelector((store: RootState) => store.order.orderNumber);
   return (
     <>
-      <h2 className={styles.totalPrice}>{orderNumber}</h2>
+      <h2 className={styles.totalPrice} data-testid="order-number">{orderNumber}</h2>
       <h3 className={styles.orderIdentifier}>идентификатор заказа</h3>
       <img className={styles.checkMark} src={checkMark} alt="Check Mark" />
       <p className={styles.orderStatus}>Ваш заказ начали готовить</p>

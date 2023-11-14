@@ -16,7 +16,7 @@ const ModalOverlay: FC<IModalOverlay> = ({ children, onClose, isOpen }) => {
   }
 
   return (
-    <div className={`${styles.modalOverlay} ${isOpen && styles.open}`} onMouseDown={handleOverlayClose}>
+    <div data-testid="modal-overlay" className={`${styles.modalOverlay} ${isOpen && styles.open}`} onMouseDown={handleOverlayClose}>
       {children}
     </div>
   )

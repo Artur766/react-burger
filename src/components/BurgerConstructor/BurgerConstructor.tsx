@@ -43,7 +43,12 @@ function BurgerConstructor() {
           type="top"
           positionName="верх"
         />
-        <div className={styles.scrollBarContainer} ref={dropRef} style={ingredients.length ? { borderColor } : {}}>
+        <div
+          data-testid="constructor-ingredient"
+          className={styles.scrollBarContainer}
+          ref={dropRef}
+          style={ingredients.length ? { borderColor } : {}}
+        >
           {
             ingredients.length
               ?

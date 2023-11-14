@@ -59,6 +59,7 @@ const Bun: FC<IBun> = ({ type, positionName, isLocked }) => {
           ref={dropRefBun}
           style={{ borderColor }}
           className={`${styles.emptyElement} ${type === "top" ? styles.emptyElementPosTop : styles.emptyElementPosBottom} `}
+          data-testid="constructor-bun"
         >
           Перенесите сюда булку
         </div>
