@@ -1,12 +1,13 @@
-//npm i cypress-drag-drop
+
+
 
 describe('service is available', function () {
+
   beforeEach('should be available on localhost:3000', () => {
-    cy.intercept("GET", "api/auth/user", { fixture: "user.json" });
-    cy.intercept("GET", "api/ingredients", { fixture: "ingredients.json" });
+    cy.intercept("GET", "https://norma.nomoreparties.space/api/auth/user", { fixture: "user.json" });
     cy.intercept("POST", "api/orders", { fixture: "order.json" });
     cy.setCookie("token", "test-accessToken");
-    cy.visit('http://localhost:3000/react-burger/');
+    cy.visit('http://localhost:3000/react-burger');
   });
 
   it('should shoe after click on 1st element', () => {
@@ -23,24 +24,27 @@ describe('service is available', function () {
   });
 
   it('should drag ingredients to the constructor', () => {
-    
+
     cy.get('.Ingredient_card__Ssxog').first().as('bun');
     cy.get('.Ingredient_card__Ssxog').last().as('ingredient');
-    cy.get('.').first().as('quantityBun');
-    cy.get('.').first().as('quantityIngredient');
 
     //Проверяем что ингредиенит и булка перетаскивается
-    cy.get('@bun').drag('.Bun_containerConstructorElement__Pe-+V');
-    cy.get('@ingredient').drag('.BurgerConstructor_scrollBarContainer__KvplW');
-    cy.get('@quantityBun').should('contain', '1');
+    cy.get('@bun').trigger("dragstart");
+    cy.get('.Bun_emptyElementPosTop__X5TGy').trigger("drop");
+
+    cy.get('@ingredient').trigger("dragstart");
+    cy.get('.BurgerConstructor_scrollBarContainer__KvplW').trigger("drop");
+
+    //проверяем число булок и ингредиентов
+    cy.get('.counter').first().as('quantityBun');
+    cy.get('.counter').last().as('quantityIngredient');
+
+    cy.get('@quantityBun').should('contain', '2');
     cy.get('@quantityIngredient').should('contain', '1');
+
+    // клик на оформление заказа
+    cy.get('button').contains('Оформить заказ').click();
+    cy.contains('Ваш заказ начали готовить');
+    cy.get('.OrderDetails_totalPrice__eW9BM').contains("123");
   });
-
-
-  it('the modal should open that the order has been placed', () => {
-    //клик на оформить заказ
-    cy.get('.').contains('Оформить заказ').click();
-    cy.contains('...');
-  });
-
 });
