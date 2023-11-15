@@ -49,6 +49,8 @@ const ingredientsConstructorSlice = createSlice({
       state.ingredients.unshift(action.payload);
     },
     deleteIngredient(state, action) {
+      console.log(state.ingredients);
+
       state.ingredients = state.ingredients.filter(item => item.id !== action.payload);
     },
     addBun(state, action) {

@@ -46,6 +46,7 @@ const Ingredient: FC<IIngredientProps> = ({ ingradient }) => {
       className={styles.card}
       onClick={handleClickCard}
       style={{ opacity: opacityToUse }}
+      data-testid="ingredient-card"
     >
       {ingradient.count !== 0 && <Counter count={ingradient.count ?? 0} size="default" extraClass={`${styles.counter}"m-1"`} />}
       <img className={styles.image} src={ingradient.image} alt="ингредиент" />
