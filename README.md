@@ -9,7 +9,6 @@
  - [Адрес проекта](#Адрес-проекта)
 
 ## О проекте
-Веб приложение **Космическая бургерная**. Разработано на курсе [React-разработчик](https://praktikum.yandex.ru/react/). 
 
 Представляет собой приложение интернет-магазин с возможностью регистрации, авторизации, онлайн-заказа, просмотра истории заказов, а так же возможностью узнать состав ингредиентов. 
 Бэкенд, база данных пользователей и заказов, API разработано командой Яндекса и хранится на сервере компании отдельно от данного пректа. 
@@ -23,6 +22,7 @@
   <img src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg" title="typescript" alt="typescript" width="40" height="40"/>
   <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" title="reactjs" alt="reactjs" width="40" height="40"/>
   <img src="https://github.com/devicons/devicon/blob/master/icons/redux/redux-original.svg" title="redux" alt="redux" width="40" height="40"/>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/cypress/cypress-original.svg" title="cypress" alt="cypress" width="40" height="40"/>
 </span>
 
 
